@@ -115,7 +115,6 @@ const sign_up = () => {
   justify-content: space-between;
   top: 0;
   z-index: 1000;
-  border-bottom: solid 2px black;
 }
 
 .nav-item {
