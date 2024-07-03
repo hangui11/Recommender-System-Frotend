@@ -3,6 +3,7 @@
 import { useRouter } from 'vue-router'
 import sun from '@/components/icons/sun.png'
 import search from '@/components/icons/search.png'
+import personalized_recommendation from '@/assets/personalized-recommendations.png'
 import { ref, onMounted, onUnmounted } from 'vue'
 
 
@@ -139,8 +140,12 @@ const enterModel = (modelIndex) => {
     </div>
   </div>
 
-  <div class="description">
-    AI-powered Personalization Plataform
+  <div class="header">
+    <div class="description">
+      <h1>Artificial Intelligent Powered Recommender</h1>
+      <p>Our AI personalization engine offer six different recommender models, that each one has it architect and algorithm to compute the personalized suggestion</p>
+    </div>
+    <img :src="personalized_recommendation" id="personalized_recommendation"/>
   </div>
   
   <div class="content">
@@ -151,8 +156,15 @@ const enterModel = (modelIndex) => {
 
 <style scoped>
 
-.nav-container {
+* {
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+.nav-container {
   position: sticky;
   display: flex;
   margin-left: 3%;
@@ -162,8 +174,10 @@ const enterModel = (modelIndex) => {
   align-items: center;
   top: 0;
   z-index: 1000;
-  padding-bottom: 10px;
-  margin-bottom: 5%;
+  padding-bottom: 30px;
+  margin-bottom: 1.5%;
+  background-color: #ffffff;
+  border-bottom: solid 2px rgba(241, 241, 241, 1);
   
 }
 
@@ -276,7 +290,6 @@ const enterModel = (modelIndex) => {
   min-width: 260px;
   width: auto;
   font-size: 16px;
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   border: none;
 }
 
@@ -298,15 +311,28 @@ const enterModel = (modelIndex) => {
   transform: scale(1.05);
 }
 
-
-
-
-.description {
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: xx-large;
-  font-weight: bolder;
+.header {
   margin-left: 3%;
   margin-right: 3%;
+  display: flex;
+  padding-left: 10%;
+  justify-content: space-between;
 }
 
+.description {
+  padding-top: 40px;
+  
+}
+
+h1 {
+  font-size: 55px;
+  text-align: left;
+}
+
+p {
+  text-align: justify;
+}
+#personalized_recommendation {
+  width: 60%;
+}
 </style>
