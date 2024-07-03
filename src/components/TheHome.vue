@@ -6,8 +6,6 @@ import search from '@/components/icons/search.png'
 import personalized_recommendation from '@/assets/personalized-recommendations.png'
 import { ref, onMounted, onUnmounted } from 'vue'
 
-
-
 const router = useRouter()
 
 const home = () => {
@@ -116,14 +114,13 @@ const closeModelList = () => {
     </div>
     
     <div class="nav-search" ref="searchContainer">
-          <img :src="search" class="search-logo"/>
-          <input id="search" type="text" v-model="input" :placeholder="isSearchFocused ? '' : 'Search recommender model'" autocomplete="off" @click="isSearchFocused=true; showModelList=true" @input="isSearchFocused=true; showModelList=true" @focus="isSearchFocused=true; showModelList=true" @blur="isSearchFocused=false" @keydown.down="selectDown" @keydown.up="selectUp" @keydown.enter="enterModel(modelIndex)" @keydown.escape="closeModelList"/>
-          <div class="model-list" v-if="showModelList">
-            <div v-for="(model, index) in filtereModel()" :key="model" class="model-item" :class="{'key-selected' : index == modelIndex}" @click="enterModel(index)">{{ model }}</div>
-            <div class="model-item" v-if="showModelList&&!filtereModel().length">No results found!</div>
-          </div>
+      <img :src="search" class="search-logo"/>
+      <input id="search" type="text" v-model="input" :placeholder="isSearchFocused ? '' : 'Search recommender model'" autocomplete="off" @click="isSearchFocused=true; showModelList=true" @input="isSearchFocused=true; showModelList=true" @focus="isSearchFocused=true; showModelList=true" @blur="isSearchFocused=false" @keydown.down="selectDown" @keydown.up="selectUp" @keydown.enter="enterModel(modelIndex)" @keydown.escape="closeModelList"/>
+      <div class="model-list" v-if="showModelList">
+        <div v-for="(model, index) in filtereModel()" :key="model" class="model-item" :class="{'key-selected' : index == modelIndex}" @click="enterModel(index)">{{ model }}</div>
+        <div class="model-item" v-if="showModelList&&!filtereModel().length">No results found!</div>
+      </div>
     </div>
-
 
     <div class="nav-bar">
       <div class="nav-home-bar">
@@ -162,6 +159,7 @@ const closeModelList = () => {
     <p>Explore feature-rich Recommenders and choose the most suitable one</p>
   </div>
   
+  
 </template>
 
 <style scoped>
@@ -169,6 +167,7 @@ const closeModelList = () => {
 * {
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 body {
   position: relative;
   min-height: 100vh;
@@ -196,9 +195,9 @@ body {
 }
 
 .icon {
-  height: 35px;
-  width: 35px;
-  margin-right: 10px;
+  height: 2.2rem;
+  width: 2.2rem;
+  margin-right: 0.625rem;
   transition: all 0.3s ease-in-out;
 }
 
@@ -208,7 +207,7 @@ body {
   justify-content: center;
   font-weight: bold;
   cursor: pointer;
-  font-size: 27px;
+  font-size: 1.6875rem;
   transition: all 0.3s ease-in-out;
 }
 
@@ -226,7 +225,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: 20px;
+  font-size: clamp(1rem, 3vw, 1.25rem);
   width: 36.5%;
 }
 
@@ -243,9 +242,9 @@ body {
 .nav-home-bar {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: clamp(1rem, 3vw, 1.25rem);
   justify-content: space-between;
-  padding: 5px;
+  padding: 0.3125rem;
   width: 35%;
 }
 
@@ -253,7 +252,7 @@ body {
   position: relative;
   display: flex;
   align-items: center;
-  padding-inline: 15px;
+  padding-inline: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   cursor: text;
@@ -272,7 +271,7 @@ body {
 }
 
 .model-item {
-  padding: 8px 20px;
+  padding: 0.5rem 1.25rem;
   cursor: pointer;
 }
 
@@ -287,21 +286,24 @@ body {
 }
 
 #search {
-  min-width: 260px;
-  font-size: 16px;
+  min-width: 16.25rem;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
   border: none;
   width: auto;
+  contain: content;
+  max-width: 20rem;
 }
 
+
 .search-logo {
-  width: 15px;
-  height: 15px;
+  width: 1rem;
+  height: 1rem;
 }
 
 .nav-item {
   position: relative;
   cursor: pointer;
-  padding: 10px;
+  padding: 0.625rem;
   transition: all 0.3s ease;
 }
 
@@ -311,34 +313,41 @@ body {
   transform: scale(1.05);
 }
 
+
+
 .header {
   position: relative;
-  margin: 0 3%;
+  margin: 3% 3%;
   display: flex;
   padding-left: 10%;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .description {
-  padding-top: 40px;
+  width: 32rem;
+  padding-top: 2.5rem;
   opacity: 0;
-  padding-bottom: 10px;
+  padding-bottom: 0.625rem;
 }
 
 h1 {
-  font-size: 55px;
+  font-size: clamp(2rem, 5vw, 3.4375rem);
   text-align: left;
 }
 
 p {
   text-align: justify;
   color: #0f0f0f;
-  font-size: 16px;
-  line-height: 25px;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  line-height: 1.5625rem;
 }
 
 #personalized_recommendation {
-  width: 60%;
+  width: 48rem;
+  z-index: -1;
+  /* width: 60%; */
 }
 
 .image-enter-active {
@@ -351,21 +360,37 @@ p {
 
 .button {
   cursor: pointer;
-  width: 130px;
+  max-width: 8.125rem;
+  min-width: 120px;
   border-radius: 50px;
-  padding: 10px;
+  padding: 0.625rem;
   border: none;
-  font-size: 15px;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
   color: white;
   background-color: rgba(226, 133, 93);
   box-shadow:  0 5px 5px rgba(226, 133, 93, 0.5);
   transition: transform 0.3s ease;
   margin-left: 74%;
   margin-top: 5%;
+  z-index: 100;
 }
 
 .button:hover {
   transform: translateY(-10%);
+}
+
+.model-content {
+  background-color: rgba(250, 150, 50, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-top: 5rem;
+  margin-bottom: 0rem;
 }
 
 
@@ -391,17 +416,46 @@ p {
   }
 }
 
-.model-content {
-  background-color: rgba(250, 150, 50, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+@media screen and (max-width: 1200px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0;
+  }
+
+  .description {
+    width: 100%;
+    text-align: center;
+  }
+
+  #personalized_recommendation {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 2rem;
+  }
+
+  .button {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
-h2 {
-  font-size: 40px;
-  margin-top: 5rem;
-  margin-bottom: 0rem;
+@media screen and (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .nav-bar {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .nav-search {
+    width: 100%;
+    margin-top: 1rem;
+  }
 }
+
 </style>
