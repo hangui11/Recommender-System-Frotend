@@ -101,6 +101,11 @@ const enterModel = (modelIndex) => {
   }
 }
 
+const closeModelList = () => {
+    showModelList.value = false
+    modelIndex.value = -1
+}
+
 </script>
 
 <template>
@@ -112,7 +117,7 @@ const enterModel = (modelIndex) => {
     
     <div class="nav-search" ref="searchContainer">
           <img :src="search" class="search-logo"/>
-          <input id="search" type="text" v-model="input" :placeholder="isSearchFocused ? '' : 'Search recommender model'" autocomplete="off" @focus="isSearchFocused=true; showModelList=true" @blur="isSearchFocused=false" @keydown.down="selectDown" @keydown.up="selectUp" @keydown.enter="enterModel(modelIndex)"/>
+          <input id="search" type="text" v-model="input" :placeholder="isSearchFocused ? '' : 'Search recommender model'" autocomplete="off" @click="isSearchFocused=true; showModelList=true" @input="isSearchFocused=true; showModelList=true" @focus="isSearchFocused=true; showModelList=true" @blur="isSearchFocused=false" @keydown.down="selectDown" @keydown.up="selectUp" @keydown.enter="enterModel(modelIndex)" @keydown.escape="closeModelList"/>
           <div class="model-list" v-if="showModelList">
             <div v-for="(model, index) in filtereModel()" :key="model" class="model-item" :class="{'key-selected' : index == modelIndex}" @click="enterModel(index)">{{ model }}</div>
             <div class="model-item" v-if="showModelList&&!filtereModel().length">No results found!</div>
@@ -152,8 +157,9 @@ const enterModel = (modelIndex) => {
     <img :src="personalized_recommendation" id="personalized_recommendation" :class="{'image-enter-active' : showImage}"/>
   </div>
   
-  <div class="content">
-    
+  <div class="model-content">
+    <h2>Recommender Systems</h2>
+    <p>Explore feature-rich Recommenders and choose the most suitable one</p>
   </div>
   
 </template>
@@ -171,26 +177,22 @@ body {
 .nav-container {
   position: sticky;
   display: flex;
-  margin-left: 3%;
-  margin-right: 3%;
-  margin-top: 1.5%;
+  margin: 1.5rem 2rem;
   justify-content: space-between;
   align-items: center;
   top: 0;
   z-index: 1000;
-  padding-bottom: 30px;
-  margin-bottom: 1.5%;
+  padding-bottom: 2rem;
   background-color: #ffffff;
   border-bottom: solid 2px rgba(241, 241, 241, 1);
-  
 }
 
 
 .nav-bar {
-  width: 35%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 35%;
 }
 
 .icon {
@@ -198,11 +200,9 @@ body {
   width: 35px;
   margin-right: 10px;
   transition: all 0.3s ease-in-out;
-  
 }
 
 .nav-logo {
-  flex-direction: row;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -222,17 +222,16 @@ body {
 }
 
 .nav-login-bar {
-  width: 36.5%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   font-size: 20px;
+  width: 36.5%;
 }
 
 #sign-up {
   border-radius: 10px;
-  /* background-color: rgba(250, 75, 0, 0.822); */
   transition: all 0.3s ease;
   color: rgba(250, 75, 0, 0.822);
 }
@@ -242,26 +241,23 @@ body {
 }
 
 .nav-home-bar {
-  width: 35%;
   display: flex;
   align-items: center;
   font-size: 20px;
   justify-content: space-between;
   padding: 5px;
+  width: 35%;
 }
-
 
 .nav-search {
   position: relative;
-  width: 30%;
   display: flex;
   align-items: center;
-  border: solid 1px black;
   padding-inline: 15px;
   border-radius: 10px;
-  border: none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  cursor: text
+  cursor: text;
+  width: 30%;
 }
 
 .model-list {
@@ -270,15 +266,13 @@ body {
   left: 0;
   width: 100%;
   background-color: white;
-  border: 1px solid black;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  border: none;
 }
 
 .model-item {
-  padding: 7px;
+  padding: 8px 20px;
   cursor: pointer;
 }
 
@@ -294,9 +288,9 @@ body {
 
 #search {
   min-width: 260px;
-  width: auto;
   font-size: 16px;
   border: none;
+  width: auto;
 }
 
 .search-logo {
@@ -319,8 +313,7 @@ body {
 
 .header {
   position: relative;
-  margin-left: 3%;
-  margin-right: 3%;
+  margin: 0 3%;
   display: flex;
   padding-left: 10%;
   justify-content: space-between;
@@ -330,7 +323,6 @@ body {
   padding-top: 40px;
   opacity: 0;
   padding-bottom: 10px;
-  
 }
 
 h1 {
@@ -369,6 +361,7 @@ p {
   box-shadow:  0 5px 5px rgba(226, 133, 93, 0.5);
   transition: transform 0.3s ease;
   margin-left: 74%;
+  margin-top: 5%;
 }
 
 .button:hover {
@@ -387,7 +380,6 @@ p {
   }
 }
 
-
 @keyframes slideInDescription {
   from {
     transform: translateX(-100%);
@@ -397,5 +389,19 @@ p {
     transform: translateX(0);
     opacity: 1;
   }
+}
+
+.model-content {
+  background-color: rgba(250, 150, 50, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h2 {
+  font-size: 40px;
+  margin-top: 5rem;
+  margin-bottom: 0rem;
 }
 </style>
