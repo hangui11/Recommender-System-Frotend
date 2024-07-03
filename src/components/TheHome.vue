@@ -57,9 +57,12 @@ const handleKeyDown = (event) => {
   if (input.value.length > 0 && event.key == "Enter") enterModel(-1)
 }
 
+let showImage = ref(false)
+
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
   document.addEventListener('keydown', handleKeyDown)
+  showImage.value = true
 })
 
 onUnmounted(() => {
@@ -141,11 +144,12 @@ const enterModel = (modelIndex) => {
   </div>
 
   <div class="header">
-    <div class="description">
+    <div class="description" :class="{'description-enter-active' : showImage}">
       <h1>Artificial Intelligent Powered Recommender</h1>
-      <p>Our AI personalization engine offer six different recommender models, that each one has it architect and algorithm to compute the personalized suggestion</p>
+      <p>Our AI personalization engine offers six different recommender models, each with its own architecture and algorithm to compute personalized movie suggestions, ensuring a satisfying user experience.</p>
+      <button @click="sign_up" class="button" >Start Now</button>
     </div>
-    <img :src="personalized_recommendation" id="personalized_recommendation"/>
+    <img :src="personalized_recommendation" id="personalized_recommendation" :class="{'image-enter-active' : showImage}"/>
   </div>
   
   <div class="content">
@@ -255,6 +259,7 @@ body {
   border: solid 1px black;
   padding-inline: 15px;
   border-radius: 10px;
+  border: none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   cursor: text
 }
@@ -269,6 +274,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  border: none;
 }
 
 .model-item {
@@ -312,6 +318,7 @@ body {
 }
 
 .header {
+  position: relative;
   margin-left: 3%;
   margin-right: 3%;
   display: flex;
@@ -321,6 +328,8 @@ body {
 
 .description {
   padding-top: 40px;
+  opacity: 0;
+  padding-bottom: 10px;
   
 }
 
@@ -331,8 +340,62 @@ h1 {
 
 p {
   text-align: justify;
+  color: #0f0f0f;
+  font-size: 16px;
+  line-height: 25px;
 }
+
 #personalized_recommendation {
   width: 60%;
+}
+
+.image-enter-active {
+  animation: slideInImage 1.5s ease-in-out forwards
+}
+
+.description-enter-active {
+  animation: slideInDescription 1s ease-in-out forwards
+}
+
+.button {
+  cursor: pointer;
+  width: 130px;
+  border-radius: 50px;
+  padding: 10px;
+  border: none;
+  font-size: 15px;
+  color: white;
+  background-color: rgba(226, 133, 93);
+  box-shadow:  0 5px 5px rgba(226, 133, 93, 0.5);
+  transition: transform 0.3s ease;
+  margin-left: 74%;
+}
+
+.button:hover {
+  transform: translateY(-10%);
+}
+
+
+@keyframes slideInImage {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+@keyframes slideInDescription {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 </style>
