@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import sun from '@/components/icons/sun.png'
 import search from '@/components/icons/search.png'
 import personalized_recommendation from '@/assets/personalized-recommendations.png'
+import point from '@/components/icons/point.svg'
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const router = useRouter()
@@ -22,11 +23,18 @@ const about = () => {
 
 const sign_up = () => {
   router.push('/sign_up')
+  // window.location.href = 'https://www.youtube.com/watch?v=Mhy5_DpSDhM';
 }
 
 let isSearchFocused = ref(false)
 let showModelList = ref(false)
 let input = ref("")
+let searchContainer = ref(null)
+let modelIndex = ref(-1)
+let showImage = ref(false)
+// let modelContent = ref(1)
+let pointerModel = ref('Trivial');
+
 const models = ['Trivial', 'User-to-User', 'Item-to-Item', 'Matrix Factorization', 'K-Nearest-Neighbor', 'Neuronal Collaborative Filtering']
 
 // const selectModel = (index, keyWord=false) => {
@@ -40,7 +48,6 @@ const filtereModel = () => {
   return models.filter((model) => model.toLowerCase().includes(input.value.toLowerCase()));
 }
 
-let searchContainer = ref(null)
 
 const handleClickOutside = (event) => {
   
@@ -50,12 +57,9 @@ const handleClickOutside = (event) => {
   }
 }
 
-
 const handleKeyDown = (event) => {
   if (input.value.length > 0 && event.key == "Enter") enterModel(-1)
 }
-
-let showImage = ref(false)
 
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
@@ -67,8 +71,6 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
   document.removeEventListener('keydowm', handleKeyDown)
 })
-
-let modelIndex = ref(-1)
 
 const selectDown = () => {
   const modelsFiltered = filtereModel()
@@ -155,8 +157,24 @@ const closeModelList = () => {
   </div>
   
   <div class="model-content">
-    <h2>Recommender Systems</h2>
-    <p>Explore feature-rich Recommenders and choose the most suitable one</p>
+    <div class="content-text">
+      <h2>Recommender Systems</h2>
+      <p>Explore feature-rich Recommenders and choose the most suitable one</p>
+    </div>
+    
+    <div class="models">
+      <ul>
+        <li v-for="model in models" :key="model" @click="pointerModel=model" :class="{'model-pointed' : pointerModel == model}">
+          <div class="align-point-model">
+            <img :src="point" class="point" :class="{'point-opacity' : pointerModel == model}" width="7px" height="7px" />
+            {{ model }}
+          </div>
+          
+        </li>
+      </ul>
+
+      <!-- <LoginPage v-if="pointerModel==models[1]"></LoginPage> -->
+    </div>
   </div>
   
   
@@ -345,13 +363,14 @@ p {
 }
 
 #personalized_recommendation {
+  opacity: 0;
   width: 48rem;
   z-index: -1;
   /* width: 60%; */
 }
 
 .image-enter-active {
-  animation: slideInImage 1.5s ease-in-out forwards
+  animation: 1s slideInImage 1s ease-in-out forwards
 }
 
 .description-enter-active {
@@ -380,17 +399,83 @@ p {
 }
 
 .model-content {
-  background-color: rgba(250, 150, 50, 0.3);
+  background-color: rgba(250, 150, 50, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
+.content-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
 h2 {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   margin-top: 5rem;
   margin-bottom: 0rem;
+}
+
+
+.models {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.point {
+  filter: invert(62%) sepia(66%) saturate(915%) hue-rotate(337deg) brightness(103%) contrast(96%);
+  font-size: 0.5rem;
+  margin-right:0.5rem; 
+  transform: translateX(0px);
+  opacity: 0;
+  transition: all 0.3s ease-in-out
+}
+
+
+.align-point-model {
+  cursor: pointer;
+  display: flex;
+  align-items:center;
+  
+}
+
+li {
+  padding: 0.45rem;
+  margin: 0.2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+li:hover .point {
+  opacity: 1
+}
+
+li:hover {
+  transform: translateX(20px);
+  border-radius: 10px;
+  background-color: rgba(250, 150, 50, 0.15);
+}
+
+.model-pointed {
+  color: rgba(250, 150, 50, 1);
+  font-weight: bold;
+  transform: translateX(20px);
+  border-radius: 10px;
+  background-color: rgba(250, 150, 50, 0.15);
+}
+
+.point-opacity {
+  opacity: 1;
 }
 
 
