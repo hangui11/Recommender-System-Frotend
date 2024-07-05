@@ -6,11 +6,12 @@ import search from '@/components/icons/search.png'
 import personalized_recommendation from '@/assets/personalized-recommendations.png'
 import point from '@/components/icons/point.svg'
 import { ref, onMounted, onUnmounted } from 'vue'
+import TrivialModel from '@/components/TrivialModel.vue'
 
 const router = useRouter()
 
 const home = () => {
-  router.push('/')
+  window.location.href = '/'
 }
 
 const login = () => {
@@ -173,10 +174,9 @@ const closeModelList = () => {
         </li>
       </ul>
 
-      <!-- <LoginPage v-if="pointerModel==models[1]"></LoginPage> -->
+      <TrivialModel v-if="pointerModel==models[0]"></TrivialModel>
     </div>
   </div>
-  
   
 </template>
 
@@ -199,7 +199,7 @@ body {
   align-items: center;
   top: 0;
   z-index: 1000;
-  padding-bottom: 2rem;
+  padding-bottom: 1.5rem;
   background-color: #ffffff;
   border-bottom: solid 2px rgba(241, 241, 241, 1);
 }
