@@ -6,7 +6,7 @@ import search from '@/components/icons/search.png'
 import personalized_recommendation from '@/assets/personalized-recommendations.png'
 import point from '@/components/icons/point.svg'
 import { ref, onMounted, onUnmounted } from 'vue'
-import TrivialModel from '@/components/TrivialModel.vue'
+import ModelComponent from '@/components/ModelComponent.vue'
 
 const router = useRouter()
 
@@ -174,7 +174,7 @@ const closeModelList = () => {
         </li>
       </ul>
 
-      <TrivialModel v-if="pointerModel==models[0]"></TrivialModel>
+      <ModelComponent v-if="pointerModel" :modelName="pointerModel"></ModelComponent>
     </div>
   </div>
   
@@ -370,7 +370,7 @@ p {
 }
 
 .image-enter-active {
-  animation: 1s slideInImage 1s ease-in-out forwards
+  animation: 1s slideInImage 0.75s ease-in-out forwards
 }
 
 .description-enter-active {
@@ -423,9 +423,9 @@ h2 {
 
 .models {
   display:flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  margin: 0 3%
+  /* align-items: center; */
 }
 
 ul {
@@ -451,8 +451,9 @@ ul {
 }
 
 li {
-  padding: 0.45rem;
-  margin: 0.2rem;
+  width: 20rem;
+  padding: 1rem;
+  margin: 0.4rem;
   transition: all 0.3s ease-in-out;
 }
 

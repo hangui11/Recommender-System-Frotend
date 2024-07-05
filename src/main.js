@@ -11,8 +11,8 @@ import DashboardPage from './components/DashboardPage.vue'
 import SignUpPage from './components/SignUpPage.vue'
 
 const routes = [
-  { path: '/login', component: LoginPage },
   { path: '/', component: TheHome },
+  { path: '/login', component: LoginPage },
   { path: '/sign_up', component: SignUpPage },
   { path: '/dashboard', component: DashboardPage, meta: { requiresAuth: true } }
 ]
