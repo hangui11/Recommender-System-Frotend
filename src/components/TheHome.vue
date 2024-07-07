@@ -435,9 +435,7 @@ ul {
 
 .point {
   filter: invert(62%) sepia(66%) saturate(915%) hue-rotate(337deg) brightness(103%) contrast(96%);
-  font-size: 0.5rem;
-  margin-right:0.5rem; 
-  transform: translateX(0px);
+  margin-right:0.5rem;
   opacity: 0;
   transition: all 0.3s ease-in-out
 }
