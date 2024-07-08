@@ -15,7 +15,7 @@ const users = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/users');
+    const response = await axios.get('https://sunshine-movies-backend.vercel.app/users');
     users.value = response.data;
   } catch (error) {
     console.error(error);
@@ -80,7 +80,7 @@ const sign_up = () => {
     <div class="container">
       <div class="box">
         <h1 id="login">LOGIN</h1>
-        <form class="form" @submit.prevent="loginUser">
+        <form class="form" @submit.prevent="loginUser" autocomplete="off">
           <div class="user">
             <input type="text" v-model="username" id="username" placeholder="Username" required />
           </div>

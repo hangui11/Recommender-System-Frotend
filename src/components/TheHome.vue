@@ -194,12 +194,14 @@ body {
 .nav-container {
   position: sticky;
   display: flex;
-  margin: 1.5rem 2rem;
+  margin: 1.5rem 0;
   justify-content: space-between;
   align-items: center;
   top: 0;
   z-index: 1000;
   padding-bottom: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   background-color: #ffffff;
   border-bottom: solid 2px rgba(241, 241, 241, 1);
 }
@@ -411,7 +413,6 @@ p {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  
 }
 
 h2 {
@@ -450,8 +451,8 @@ ul {
 
 li {
   width: 20rem;
-  padding: 1rem;
-  margin: 0.4rem;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
   transition: all 0.3s ease-in-out;
 }
 
