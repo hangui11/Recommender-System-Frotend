@@ -9,11 +9,13 @@ import TheHome from './components/TheHome.vue'
 import LoginPage from './components/LoginPage.vue'
 import DashboardPage from './components/DashboardPage.vue'
 import SignUpPage from './components/SignUpPage.vue'
+import AboutPage from './components/AboutPage.vue'
 
 const routes = [
   { path: '/', component: TheHome },
   { path: '/login', component: LoginPage },
   { path: '/sign_up', component: SignUpPage },
+  { path: '/about', component: AboutPage },
   { path: '/dashboard', component: DashboardPage, meta: { requiresAuth: true } }
 ]
 

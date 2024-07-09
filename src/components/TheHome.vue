@@ -1,12 +1,15 @@
 <script setup>
 
 import { useRouter } from 'vue-router'
-import sun from '@/components/icons/sun.png'
-import search from '@/components/icons/search.png'
-import personalized_recommendation from '@/assets/personalized-recommendations.png'
-import point from '@/components/icons/point.svg'
 import { ref, onMounted, onUnmounted } from 'vue'
+
+import sun from '@/assets/icons/sun.png'
+import search from '@/assets/icons/search.png'
+import point from '@/assets/icons/point.svg'
+
+import personalized_recommendation from '@/assets/images/personalized-recommendations.png'
 import ModelComponent from '@/components/ModelComponent.vue'
+import ModelChartBar from '@/components/ModelChartBar.vue'
 
 const router = useRouter()
 
@@ -177,6 +180,22 @@ const closeModelList = () => {
       <ModelComponent v-if="pointerModel" :modelName="pointerModel"></ModelComponent>
     </div>
   </div>
+  <div class="model-analysis">
+    <h2>Model Analysis</h2>
+    <div class="model-execution-time">
+      <ModelChartBar type = '1' title='Execution time of Models' yLabel="Time (seconds)"></ModelChartBar>
+      <div class="execution-time-text">
+        <h3>Execution Time Analysis</h3>
+      </div>
+      
+    </div>
+    
+  </div>
+  
+  
+  <footer>
+
+  </footer>
   
 </template>
 
@@ -194,18 +213,14 @@ body {
 .nav-container {
   position: sticky;
   display: flex;
-  margin: 1.5rem 0;
   justify-content: space-between;
   align-items: center;
   top: 0;
   z-index: 1000;
-  padding-bottom: 1.5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding: 1.5rem 2rem;
   background-color: #ffffff;
   border-bottom: solid 2px rgba(241, 241, 241, 1);
 }
-
 
 .nav-bar {
   display: flex;
@@ -230,7 +245,6 @@ body {
   font-size: 1.6875rem;
   transition: all 0.3s ease-in-out;
 }
-
 
 .nav-logo:hover .icon {
   transform: rotate(360deg) scale(1.15);
@@ -314,7 +328,6 @@ body {
   max-width: 20rem;
 }
 
-
 .search-logo {
   width: 1rem;
   height: 1rem;
@@ -332,8 +345,6 @@ body {
   border-radius: 10px; 
   transform: scale(1.05);
 }
-
-
 
 .header {
   position: relative;
@@ -381,16 +392,17 @@ p {
 
 .button {
   cursor: pointer;
-  max-width: 8.125rem;
-  min-width: 120px;
+  width: 9rem;
+  height: 3rem;
+  font-weight: bold;
   border-radius: 50px;
   padding: 0.625rem;
   border: none;
   font-size: clamp(0.875rem, 2.5vw, 1rem);
   color: white;
-  background-color: rgba(226, 133, 93);
-  box-shadow:  0 5px 5px rgba(226, 133, 93, 0.5);
-  transition: transform 0.3s ease;
+  background-color: rgba(250, 150, 50, 1);
+  box-shadow:  0 0 15px rgba(250, 150, 50, 1);
+  transition: all 0.3s ease;
   margin-left: 74%;
   margin-top: 5%;
   z-index: 100;
@@ -398,6 +410,8 @@ p {
 
 .button:hover {
   transform: translateY(-10%);
+  background-color: rgba(250, 150, 50, 0.8);
+  box-shadow: 0 0 15px rgba(250, 150, 50, 0.8);
 }
 
 .model-content {
@@ -417,7 +431,7 @@ p {
 
 h2 {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
-  margin-top: 5rem;
+  margin-top: 3rem;
   margin-bottom: 0rem;
 }
 
@@ -425,7 +439,8 @@ h2 {
 .models {
   display:flex;
   justify-content: center;
-  margin: 0 3%
+  margin: 0 3%;
+  margin-bottom: 3rem
   /* align-items: center; */
 }
 
@@ -479,6 +494,7 @@ li:hover {
 }
 
 
+
 @keyframes slideInImage {
   from {
     transform: translateX(100%);
@@ -525,6 +541,12 @@ li:hover {
   }
 }
 
+@media screen and (max-width: 1050px) {
+  .models {
+    flex-direction: column
+  }
+}
+
 @media screen and (max-width: 768px) {
   .nav-container {
     flex-direction: column;
@@ -541,6 +563,29 @@ li:hover {
     width: 100%;
     margin-top: 1rem;
   }
+}
+
+.model-analysis {
+  margin: 0 3%;
+  padding-left: 10%;
+  display: flex;
+  flex-direction: column;
+}
+
+.model-execution-time {
+  display: flex;
+  flex-direction: row;
+  margin-top: 3%;
+}
+
+.execution-time-text {
+  width: 50rem;
+  display: flex;
+  justify-content: center;
+}
+
+h3 {
+  font-size: 1.5rem;
 }
 
 </style>

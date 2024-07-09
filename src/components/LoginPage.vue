@@ -1,5 +1,5 @@
 <script setup>
-import recommender_system_img from '@/assets/recommender_system.jpg'
+import recommender_system_img from '@/assets/images/recommender_system.jpg'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
