@@ -43,13 +43,14 @@ const labels = modelInformation.map(item => item.name)
 const executionTime = modelInformation.map(item => item.time)
 const accuracy = modelInformation.map(item => item.accuracy)
 
+
 ChartJS.register(Title, Tooltip, Legend, CategoryScale, LinearScale, BarElement)
 
 const charDataTime = ref({
   labels: labels,
   datasets: [
     {
-      backgroundColor: ['red', 'green', 'red', 'blue', 'blue', 'blue'],
+      backgroundColor: ['red', 'green', 'green', 'green', 'blue', 'blue'],
       borderWidth: 1,
       data: executionTime,
     //   barThickness: 80
@@ -80,15 +81,15 @@ const chartOptions = ref({
         generateLabels: function() {
           return [
             {
-              text: 'Item-based model',
+              text: props.type === '1' ? 'Non-personalized' : 'Item-based model',
               fillStyle: 'red',
             },
             {
-              text: 'User-based model',
+              text: props.type === '1' ? 'Collaborative Filtering' : 'User-based model',
               fillStyle: 'green'
             },
             {
-              text: 'Hybrid model',
+              text: props.type === '1' ? 'Machine Learning' : 'Hybrid model',
               fillStyle: 'blue'
             }
           ];
@@ -140,7 +141,8 @@ const chartOptions = ref({
 
 .chart-container {
     /* margin-top: 5rem; */
-    width: 33rem;
+    width: 40rem;
+    max-width: 40rem;
     height: 30rem;
     padding: 1rem 0;
     padding-left: 1rem;

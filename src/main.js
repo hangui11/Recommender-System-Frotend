@@ -3,6 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store'
+import VueScrollTo from 'vue-scrollto'
 
 import { createRouter, createWebHistory } from 'vue-router'
 import TheHome from './components/TheHome.vue'
@@ -35,4 +36,4 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-createApp(App).use(router).use(store).mount('#app')
+createApp(App).use(router).use(store).use(VueScrollTo).mount('#app')

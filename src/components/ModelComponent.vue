@@ -116,10 +116,8 @@ const goToModel = (model)  => {
 
 
 .model {
-    padding-top: 1rem;
-    padding-left: 5rem;
     animation: showModel 0.5s ease-in forwards;
-    /* align-items: center */
+    padding-top: 1rem;
 }
 
 .img {
@@ -169,9 +167,6 @@ button:hover {
     box-shadow: 0 0 15px rgba(250, 150, 50, 0.8);
 }
 
-.btn {
-    padding-left: 5rem;
-}
 
 .arrow {
     padding-left: 0.5rem;

@@ -3,13 +3,13 @@
 import { useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 
-import sun from '@/assets/icons/sun.png'
+import sun from '@/assets/icons/sun.svg'
 import search from '@/assets/icons/search.png'
 import point from '@/assets/icons/point.svg'
 
 import personalized_recommendation from '@/assets/images/personalized-recommendations.png'
 import ModelComponent from '@/components/ModelComponent.vue'
-import ModelChartBar from '@/components/ModelChartBar.vue'
+import ModelDescription from '@/components/ModelDescription.vue'
 
 const router = useRouter()
 
@@ -173,7 +173,6 @@ const closeModelList = () => {
             <img :src="point" class="point" :class="{'point-opacity' : pointerModel == model}" width="7px" height="7px" />
             {{ model }}
           </div>
-          
         </li>
       </ul>
 
@@ -181,14 +180,9 @@ const closeModelList = () => {
     </div>
   </div>
   <div class="model-analysis">
-    <h2>Model Analysis</h2>
-    <div class="model-execution-time">
-      <ModelChartBar type = '1' title='Execution time of Models' yLabel="Time (seconds)"></ModelChartBar>
-      <div class="execution-time-text">
-        <h3>Execution Time Analysis</h3>
-      </div>
-      
-    </div>
+    <h3>Model Analysis</h3>
+    <ModelDescription type="2"/>
+    <ModelDescription type="1"/>
     
   </div>
   
@@ -420,6 +414,8 @@ p {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  /* margin: 0 3%; */
+  padding: 0% 10%;
 }
 
 .content-text {
@@ -440,13 +436,14 @@ h2 {
   display:flex;
   justify-content: center;
   margin: 0 3%;
-  margin-bottom: 3rem
+  margin-bottom: 3rem;
   /* align-items: center; */
 }
 
 ul {
   list-style-type: none;
   padding: 0;
+  padding-right: 5rem;
 }
 
 .point {
@@ -493,6 +490,24 @@ li:hover {
   opacity: 1;
 }
 
+.model-analysis {
+  margin: 0 3%;
+  padding: 0 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+
+
+h3 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-top: 3rem;
+  margin-left: 2.5rem;
+  margin-bottom: 0;
+
+}
 
 
 @keyframes slideInImage {
@@ -545,6 +560,14 @@ li:hover {
   .models {
     flex-direction: column
   }
+
+  .models {
+    align-items: center;
+  }
+  ul {
+    padding-right: 0;
+    max-width: 400px
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -565,27 +588,6 @@ li:hover {
   }
 }
 
-.model-analysis {
-  margin: 0 3%;
-  padding-left: 10%;
-  display: flex;
-  flex-direction: column;
-}
 
-.model-execution-time {
-  display: flex;
-  flex-direction: row;
-  margin-top: 3%;
-}
-
-.execution-time-text {
-  width: 50rem;
-  display: flex;
-  justify-content: center;
-}
-
-h3 {
-  font-size: 1.5rem;
-}
 
 </style>
