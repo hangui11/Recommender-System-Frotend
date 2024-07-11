@@ -40,6 +40,7 @@ let showImage = ref(false)
 let pointerModel = ref('Trivial');
 
 const models = ['Trivial', 'User-to-User', 'Item-to-Item', 'Matrix Factorization', 'K-Nearest-Neighbor', 'Neuronal Collaborative Filtering']
+const currentYear = new Date().getFullYear()
 
 // const selectModel = (index, keyWord=false) => {
 //   const modelsFiltered = filtereModel()
@@ -94,7 +95,6 @@ const enterModel = (modelIndex) => {
   for (let i = 0; i < models.length; ++i) {
     console.log(input.value)
     if (input.value.toLowerCase() == models[i].toLowerCase()) {
-      console.log('hola')
       const auxValue = input.value
       input.value = ''
       router.push(`/${auxValue}`)
@@ -181,15 +181,37 @@ const closeModelList = () => {
   </div>
   <div class="model-analysis">
     <h3>Model Analysis</h3>
-    <ModelDescription type="2"/>
-    <ModelDescription type="1"/>
-    
+    <ModelDescription type="2" :last="false"/>
+    <ModelDescription type="1" :last="true"/>
   </div>
   
-  
   <footer>
-
+    <div class="footer-1">
+      <div>
+        <img :src="sun" class="footer-img"/>
+        <div class="footer-text">Sunshine Movies</div>
+        <div class="footer-contact">
+          <div>
+            <div class="footer-contact-text">Email</div>
+            <div>admin@sunshine.com</div>
+          </div>
+          <div>
+            <div class="footer-contact-text">Phone</div>
+            <div>+34 785214963 </div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <div class="footer-text">Get started with personalized movie recommendations</div>
+        <button class="footer-btn" @click="login">Try Sunshine Movies</button>
+      </div>
+    </div>  
   </footer>
+
+  <div class="footer-2">
+    &copy; {{ currentYear }} Sunshine Movies. All rights reserved.
+  </div>
   
 </template>
 
@@ -499,8 +521,6 @@ li:hover {
   /* align-items: center; */
 }
 
-
-
 h3 {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   margin-top: 3rem;
@@ -509,6 +529,73 @@ h3 {
 
 }
 
+footer {
+  margin: 0 3%;
+  padding: 3% 10%;
+  border-top: solid 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.footer-img {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.footer-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.footer-text {
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding-bottom: 1.5rem;
+  width: 22rem;
+  text-align: justify;
+}
+
+.footer-contact {
+  display: flex;
+  width: 20rem;
+  justify-content: space-between;
+  flex-direction: row;
+  font-size: 0.9rem;
+}
+
+.footer-contact-text {
+  color: rgba(0, 0, 0, 0.6);
+  padding-bottom: 0.25rem;
+}
+.footer-btn {
+  cursor: pointer;
+  border-radius: 50px;
+  width: 10.5rem;
+  height: 3rem;
+  font-weight: bold;
+  /* font-size: 0.75rem; */
+  border: none;
+  color: white;
+  background-color: rgba(250, 150, 50);
+  box-shadow: 0 0 10px rgba(250, 150, 50, 1);
+  transition: all 0.3s ease-in-out
+}
+
+.footer-btn:hover {
+  transform: translateY(-10%);
+  background-color: rgba(250, 150, 50, 0.8);
+  box-shadow: 0 0 10px rgba(250, 150, 50, 0.8);
+}
+
+.footer-2 {
+  padding: 3% 13%;
+  background-color: rgba(250, 150, 50, 0.5)
+
+}
 
 @keyframes slideInImage {
   from {

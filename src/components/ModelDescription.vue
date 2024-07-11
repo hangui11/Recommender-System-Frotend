@@ -5,13 +5,22 @@ const props = defineProps({
     type: {
         type: String,
         required: true
+    },
+    last: {
+      type: Boolean,
+      required: true
     }
+    
 });
 
+
+const isLast = () => {
+  return ! props.last
+}
 </script>
 
 <template>
-    <div v-if="props.type === '1'" class="model-chart">
+    <div v-if="props.type === '1'" class="model-chart" :class="{'model-chart-line' : isLast()}">
       
       <div class="execution-time-text">
         <div id="model-chart-title">Computation Time</div>
@@ -29,7 +38,7 @@ const props = defineProps({
     </div>
 
 
-    <div v-else class="model-chart">
+    <div v-else class="model-chart" :class="{'model-chart-line' : isLast()}">
       <ModelChartBar type = '2' title='Model Accuracy' yLabel="Accuracy (%)" class="execution-chart"></ModelChartBar>
       <div class="accuracy-text">
         <div id="model-chart-title">Model Accuracy</div>
@@ -55,6 +64,10 @@ const props = defineProps({
   align-items: center;
   justify-content: center;
   padding: 4rem 0;
+  
+}
+
+.model-chart-line {
   border-bottom: solid 1px rgba(0, 0, 0, 0.2)
 }
 
