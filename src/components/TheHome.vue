@@ -592,7 +592,7 @@ footer {
 }
 
 .footer-2 {
-  padding: 3% 13%;
+  padding: 2% 13%;
   background-color: rgba(250, 150, 50, 0.5)
 
 }
