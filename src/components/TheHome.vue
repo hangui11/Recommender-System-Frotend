@@ -131,21 +131,21 @@ const closeModelList = () => {
     <div class="nav-bar">
       <div class="nav-home-bar">
         <div @click="home" class="nav-item">
-          Home
+          HOME
         </div>
 
         <div @click="about" class="nav-item">
-          About
+          ABOUT
         </div>
       </div>
 
       <div class="nav-login-bar">
         <div @click="login" class="nav-item">
-          Login
+          LOGIN
         </div>
 
         <div @click="sign_up" class="nav-item" id="sign-up">
-          Sign up
+          SIGN UP
         </div>
       </div>
     </div>
