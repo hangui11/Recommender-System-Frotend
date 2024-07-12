@@ -186,30 +186,28 @@ const closeModelList = () => {
   </div>
   
   <footer>
-    <div class="footer-1">
-      <div>
-        <img :src="sun" class="footer-img"/>
-        <div class="footer-text">Sunshine Movies</div>
-        <div class="footer-contact">
-          <div>
-            <div class="footer-contact-text">Email</div>
-            <div>admin@sunshine.com</div>
-          </div>
-          <div>
-            <div class="footer-contact-text">Phone</div>
-            <div>+34 785214963 </div>
-          </div>
+    <div>
+      <img :src="sun" class="footer-img"/>
+      <div class="footer-text">Sunshine Movies</div>
+      <div class="footer-contact">
+        <div>
+          <div class="footer-contact-text">Email</div>
+          <div>admin@sunshine.com</div>
+        </div>
+        <div>
+          <div class="footer-contact-text">Phone</div>
+          <div>+34 785214963 </div>
         </div>
       </div>
+    </div>
       
-      <div>
-        <div class="footer-text">Get started with personalized movie recommendations</div>
-        <button class="footer-btn" @click="login">Try Sunshine Movies</button>
-      </div>
-    </div>  
+    <div>
+      <div class="footer-text">Get started with personalized movie recommendations</div>
+      <button class="footer-btn" @click="login">Try Sunshine Movies</button>
+    </div>
   </footer>
 
-  <div class="footer-2">
+  <div class="copyright">
     &copy; {{ currentYear }} Sunshine Movies. All rights reserved.
   </div>
   
@@ -534,7 +532,9 @@ footer {
   padding: 3% 10%;
   border-top: solid 1px rgba(0, 0, 0, 0.2);
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
   
 }
 
@@ -546,9 +546,7 @@ footer {
 
 .footer-1 {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
+  
 }
 
 .footer-text {
@@ -591,7 +589,7 @@ footer {
   box-shadow: 0 0 10px rgba(250, 150, 50, 0.8);
 }
 
-.footer-2 {
+.copyright {
   padding: 2% 13%;
   background-color: rgba(250, 150, 50, 0.5)
 

@@ -147,29 +147,27 @@ const closeModelList = () => {
             <div class="about-recommenders">
                 <h1 class="title">About Our Recommender Systems</h1>
                 <div class="text">
-                    Welcome to Sunshine Movies! We are committed to enhancing your experience with our cutting-edge recommendation technologies. We tailor our 
-                    recommendations to suit yout unique preferences, and you can choose the most suitable and personalised option according to your preferences.
+                   At Sunshine Movies, we are committed to enhancing your experience with our cutting-edge recommendation technologies. We tailor our 
+                   recommendations to suit yout unique preferences, and you can choose the most suitable and personalised option according to your preferences.
                 </div>
             </div>
             <img :src="about_recommender" class="img"/>
             
         </div>
-        
+        <div class="about-2">
+
+        </div>
     </body>
 
     <footer>
-        <div class="footer-1">
-            <div>
-                <img :src="sun" class="footer-img"/>
-                <div class="footer-text">Sunshine Movies</div>
-                
-            </div>
-        
-            <div class="footer-text2">Feel free to explore, discover, and enjoy the best recommendations tailored just for you!</div>
-        </div>  
+        <div class="footer-logo">
+            <img :src="sun" class="footer-img"/>
+            <div class="footer-text">Sunshine Movies</div>
+        </div>
+        <div class="footer-text2">Feel free to explore, discover, and enjoy the best recommendations tailored just for you!</div>
     </footer>
 
-  <div class="footer-2">
+  <div class="copyright">
     &copy; {{ currentYear }} Sunshine Movies. All rights reserved.
   </div>
     
@@ -326,7 +324,7 @@ body {
 
 .about-1 {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
 }
 
 .img {
@@ -348,7 +346,9 @@ footer {
   padding: 3% 10%;
   border-top: solid 1px rgba(0, 0, 0, 0.2);
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
   
 }
 
@@ -357,18 +357,11 @@ footer {
   height: 2.5rem;
 }
 
-.footer-1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-}
-
 .footer-text {
   font-weight: bold;
   font-size: 1.5rem;
   padding-bottom: 1.5rem;
-  width: 30rem;
+  width: 12rem;
   text-align: justify;
 }
 
@@ -382,11 +375,17 @@ footer {
   font-style: italic;
 }
 
-.footer-2 {
+.copyright {
   padding: 2% 13%;
   background-color: rgba(250, 150, 50, 0.5)
-
 }
+.footer-logo {
+    width: 22%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
 
 
 </style>
