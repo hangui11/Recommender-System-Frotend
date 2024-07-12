@@ -33,7 +33,7 @@ let modelIndex = ref(-1)
 let showImage = ref(false)
 
 const models = ['Trivial', 'User-to-User', 'Item-to-Item', 'Matrix Factorization', 'K-Nearest-Neighbor', 'Neuronal Collaborative Filtering']
-
+const currentYear = new Date().getFullYear()
 // const selectModel = (index, keyWord=false) => {
 //   const modelsFiltered = filtereModel()
 //   input.value = modelsFiltered[index].toLowerCase()
@@ -145,11 +145,12 @@ const closeModelList = () => {
     <body>
         <div class="about-1">
             <div class="about-recommenders">
-                <h1 class="title">About Our Recommender Systems</h1>
+                <h1 class="title">About Recommender Systems</h1>
                 <div class="text">
                    At Sunshine Movies, we are committed to enhancing your experience with our cutting-edge recommendation technologies. We tailor our 
                    recommendations to suit yout unique preferences, and you can choose the most suitable and personalised option according to your preferences.
                 </div>
+                
             </div>
             <img :src="about_recommender" class="img"/>
             
@@ -343,13 +344,12 @@ body {
 
 footer {
   margin: 0 3%;
-  padding: 3% 10%;
+  padding: 2% 10%;
   border-top: solid 1px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  
 }
 
 .footer-img {
