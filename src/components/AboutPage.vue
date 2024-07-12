@@ -380,7 +380,7 @@ footer {
   background-color: rgba(250, 150, 50, 0.5)
 }
 .footer-logo {
-    width: 22%;
+    width: 15rem;
     display: flex;
     justify-content: space-between;
 }
