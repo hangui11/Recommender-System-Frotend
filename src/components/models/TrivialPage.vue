@@ -1,8 +1,8 @@
 <script setup>
-
+import NavContainer from '../NavContainer.vue';
 </script>
 
 
 <template>
-    Trivial Model
+    <NavContainer/>
 </template>

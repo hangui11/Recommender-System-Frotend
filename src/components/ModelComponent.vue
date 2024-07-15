@@ -32,7 +32,7 @@ const checkProps = () => {
 
 const goToModel = (model)  => {
     model = model.toLowerCase()
-    router.push(`./${model}`)
+    router.push(`/models/${model}`)
 }
 // const seedValue = Math.random()
 </script>
