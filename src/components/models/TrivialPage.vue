@@ -83,6 +83,10 @@ const currentYear = new Date().getFullYear()
   background-color: rgba(250, 150, 50, 0.5)
 }
 
+h1 {
+    color: rgba(250, 150, 50, 0.8)
+}
+
 p {
     text-align: justify;
     line-height: 1.5rem;
