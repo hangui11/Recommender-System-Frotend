@@ -11,7 +11,7 @@ const currentYear = new Date().getFullYear()
 <template>
   <NavContainer/>
 
-  <body>
+  <div class="body">
     <div class="about-1">
       <div class="about-recommenders">
         <h1 class="title">About Recommender Systems</h1>
@@ -63,7 +63,7 @@ const currentYear = new Date().getFullYear()
 
       
     </div>
-  </body>
+  </div>
 
   <footer>
     <div class="footer-logo">
@@ -87,7 +87,7 @@ const currentYear = new Date().getFullYear()
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-body {
+.body {
     margin: 5% 3%;
     padding: 0 6.5%;
 }
