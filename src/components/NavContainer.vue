@@ -87,11 +87,13 @@ const enterModel = (modelIndex) => {
     if (input.value.toLowerCase() == models[i].toLowerCase()) {
       const auxValue = input.value
       input.value = ''
+      auxValue.replaceAll(' ', '-')
       router.push(`/models/${auxValue}`)
     }
   }
   if (modelIndex != -1) {
-    router.push(`/models/${modelsFiltered[modelIndex].toLowerCase()}`)
+    const model = modelsFiltered[modelIndex].toLowerCase().replaceAll(' ', '-')
+    router.push(`/models/${model}`)
   }
 }
 

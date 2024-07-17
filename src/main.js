@@ -28,9 +28,9 @@ const routes = [
   { path: '/models/trivial', component: TrivialPage },
   { path: '/models/user-to-user', component: UserPage},
   { path: '/models/item-to-item', component: ItemPage},
-  { path: '/models/matrix factorization', component: MfPage},
+  { path: '/models/matrix-factorization', component: MfPage},
   { path: '/models/k-nearest-neighbor', component: KnnPage},
-  { path: '/models/neuronal collaborative filtering', component: NcfPage}
+  { path: '/models/neuronal-collaborative-filtering', component: NcfPage} 
 ]
 
 const router = createRouter({
