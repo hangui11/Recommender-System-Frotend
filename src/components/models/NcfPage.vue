@@ -1,6 +1,6 @@
 <script setup>
 import NavContainer from '../NavContainer.vue';
-import knn_based from '@/assets/images/knn_based.png'
+import mlp from '@/assets/images/mlp.png'
 const currentYear = new Date().getFullYear()
 </script>
 
@@ -14,7 +14,7 @@ const currentYear = new Date().getFullYear()
             interactions between users and items. This approach allows for more accurate and personalized recommendations, especially in scenarios with complex and sparse data.
         </p>
 
-        <img :src="knn_based"/>
+        <img :src="mlp" class="mlp"/>
 
         <div>
             <p><b>How It Works</b></p>
@@ -49,11 +49,15 @@ const currentYear = new Date().getFullYear()
                     interactiong with an item.
                 </li>
                 <li>
-                    <b>Recommendation Genration: </b> The hybrid system generates a list of recommended items for the user by combining the outputs from the collaborative components,
-                    ensuring that the recommendations are relevant and personalised.
+                    <b>Training: </b> 
+                    <ul>
+                        <li>
+                            <b>Loss Function:</b>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <b>Feedback Loop: </b> The system continuously updates its models based on new user interactions, improving the accuracy of future recommendations.
+                    <b>Feedback Loop: </b> The system continuously updates its models based on new user interactions, improving the accuracy of recommendations over time.
                 </li>
             </ul>
         </div>
@@ -138,7 +142,7 @@ li {
   line-height: 1.5rem;
 }
 
-img {
+.mlp {
     float: right;
     margin: 2rem 0rem;
     margin-left: 2rem;
