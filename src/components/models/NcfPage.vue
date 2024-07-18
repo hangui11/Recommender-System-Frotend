@@ -1,6 +1,7 @@
 <script setup>
 import NavContainer from '../NavContainer.vue';
 import mlp from '@/assets/images/mlp.png'
+import ncf_based from '@/assets/images/ncf_based.png'
 const currentYear = new Date().getFullYear()
 </script>
 
@@ -70,6 +71,8 @@ const currentYear = new Date().getFullYear()
                 </li>
             </ul>
         </div>
+
+        <img :src="ncf_based" class="ncf"/>
 
         <div>
             <p>This approach has several advantages: </p>
@@ -161,6 +164,13 @@ li {
 
 .steps {
     list-style: decimal;
+}
+
+.ncf {
+    float: inline-start;
+    width: 35rem;
+    margin: 3rem 0;
+    margin-inline-end: 3rem;
 }
 
 </style>
