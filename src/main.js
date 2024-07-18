@@ -26,7 +26,7 @@ const routes = [
   { path: '/sign_up', component: SignUpPage },
   { path: '/about', component: AboutPage },
   { path: '/dashboard', component: DashboardPage, meta: { requiresAuth: true } },
-  { path: '/forgotPassword', component: ForgotPasswordPage},
+  { path: '/forgotPassword', component: ForgotPasswordPage, props: true},
   { path: '/models/trivial', component: TrivialPage },
   { path: '/models/user-to-user', component: UserPage},
   { path: '/models/item-to-item', component: ItemPage},
