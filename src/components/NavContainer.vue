@@ -106,41 +106,41 @@ const closeModelList = () => {
 
 <template>
     <div class="nav-container">
-        <div class="nav-logo">
+      <div class="nav-logo">
         <img  :src="sun" alt="Sun" class="icon" @click="home"/>
         <div class="name" @click="home">Sunshine Movies</div>
-        </div>
+      </div>
             
-        <div class="nav-search" ref="searchContainer">
+      <div class="nav-search" ref="searchContainer">
         <img :src="search" class="search-logo"/>
         <input id="search" type="text" v-model="input" :placeholder="isSearchFocused ? '' : 'Search recommender model'" autocomplete="off" @click="isSearchFocused=true; showModelList=true" @input="isSearchFocused=true; showModelList=true" @focus="isSearchFocused=true; showModelList=true" @blur="isSearchFocused=false" @keydown.down="selectDown" @keydown.up="selectUp" @keydown.enter="enterModel(modelIndex)" @keydown.escape="closeModelList"/>
         <div class="model-list" v-if="showModelList">
             <div v-for="(model, index) in filtereModel()" :key="model" class="model-item" :class="{'key-selected' : index == modelIndex}" @click="enterModel(index)">{{ model }}</div>
             <div class="model-item" v-if="showModelList&&!filtereModel().length">No results found!</div>
         </div>
-        </div>
+      </div>
 
-        <div class="nav-bar">
+      <div class="nav-bar">
         <div class="nav-home-bar">
             <div @click="home" class="nav-item">
-            HOME
+              HOME
             </div>
 
             <div @click="about" class="nav-item">
-            ABOUT
+              ABOUT
             </div>
         </div>
 
         <div class="nav-login-bar">
             <div @click="login" class="nav-item">
-            LOGIN
+              LOGIN
             </div>
 
             <div @click="sign_up" class="nav-item" id="sign-up">
-            SIGN UP
+              SIGN UP
             </div>
         </div>
-        </div>
+      </div>
     </div>
 
 
@@ -165,6 +165,7 @@ const closeModelList = () => {
 }
 
 .nav-bar {
+  font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -234,6 +235,14 @@ const closeModelList = () => {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   cursor: text;
   width: 30%;
+}
+
+input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+  margin: 10px;
 }
 
 .model-list {

@@ -1,219 +1,172 @@
 <script setup>
-import recommender_system_img from '@/assets/images/recommender_system.jpg'
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-import axios from 'axios'
-
-const router = useRouter()
-const store = useStore()
+import movie_recommendation from '@/assets/images/recommender_system.jpg'
+import eye_closed from '@/assets/icons/eye_closed.svg'
+import eye_open from '@/assets/icons/eye_open.svg'
+import { ref } from 'vue';
+import axios from 'axios';
 
 const username = ref('')
 const password = ref('')
+const eye_show = ref(false)
 
-const users = ref([]);
 
-onMounted(async () => {
+const sign_in = async () => {
   try {
-    const response = await axios.get('https://sunshine-movies-backend.vercel.app/users');
-    users.value = response.data;
+    const response = await axios.get('https://sunshine-movies-backend.vercel.app/users/?username='+username.value)
+    // console.log(response.data)
+    if (response.data.password != password.value) alert('Invalid password')
+    else {
+      alert('Sucessfull')
+    }
   } catch (error) {
-    console.error(error);
-  }
-});
-const loginUser = () => {
-  const user = users.value.find((u) => u.username == username.value && u.password == password.value)
-
-  if (user) {
-    store.dispatch('login', user)
-    router.push('/dashboard')
-  } else {
-    alert('Invalid username or password')
+    alert('Invalid username')
   }
 }
 
 
-const home = () => {
-  router.push('/')
-}
-
-const about = () => {
-  router.push('/about')
-}
-
-const login = () => {
-  router.push('/login')
-}
-
-const sign_up = () => {
-  router.push('/sign_up')
-}
 </script>
 
 <template>
-  <div class="nav">
-    <div @click="home" class="nav-item">
-      HOME
-      <div class="hover-box"></div>
-    </div>
-
-    <div @click="about" class="nav-item">
-      ABOUT
-      <div class="hover-box"></div>
-    </div>
+  <div class="body">
     
-      <div @click="login" class="nav-item">
-      LOGIN
-      <div class="hover-box"></div>
-    </div>
-
-    <div @click="sign_up" class="nav-item">
-      SIGN UP
-      <div class="hover-box"></div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div id="image">
-      <img :src="recommender_system_img" alt="recommender system" width="100%" height="100%" />
-    </div>
+    <img :src="movie_recommendation" alt="recommender system" class="image"/>
+    
     <div class="container">
+      <!-- <a href="/">back</a> -->
       <div class="box">
-        <h1 id="login">LOGIN</h1>
-        <form class="form" @submit.prevent="loginUser" autocomplete="off">
-          <div class="user">
-            <input type="text" v-model="username" id="username" placeholder="Username" required />
+        <h1>Login</h1>
+        <form class="form" @submit.prevent="sign_in" autocomplete="off">
+          <div class="content-form">
+            <input type="text" v-model="username" id="username" placeholder="Username" required autocomplete="username"/>
           </div>
-          <div class="password">
-            <input
-              type="password"
-              v-model="password"
-              id="password"
-              placeholder="Password"
-              required
-            />
+          <div class="content-form">
+            <input :type="eye_show ? 'text' : 'password'" v-model="password" id="password" placeholder="Password" autocomplete="current-password" required />
+            <div @click="eye_show = ! eye_show">
+              <img v-if="! eye_show" :src="eye_open" class="eye"/>
+              <img v-if="eye_show" :src="eye_closed" class="eye"/>
+            </div>
           </div>
-          <a id="forgot_pwd" href="./forgot_pwd">Forgot Password?</a>
-          <button id="button" type="submit">Login</button>
+          <a href="/forgot_pwd" class="pwd">Forgot Password?</a>
+          <button class="button" type="submit">Sign in</button>
         </form>
-
-        <a id="signup" href="/sign_up">Sign Up</a>
+        <div class="sign_up">
+          <p>Don't have an account? 
+            <a href="/sign_up">Sign Up now</a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 
+<style scoped>
+* {
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
-<style>
-
-.nav {
-  height: 5%;
-  position: sticky;
+.body {
   display: flex;
-  margin-bottom: 1px;
-  justify-content: space-between;
-  top: 0;
-  z-index: 1000;
-}
-
-.nav-item {
-  font-weight: bold;
-  position: relative;
-  cursor: pointer;
-  padding: 10px;
-}
-
- .hover-box {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 15%;
-  pointer-events: none; /* Ensures the hover-box does not interfere with mouse events */
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.3s ease;
-}
-
-.nav-item:hover .hover-box {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.row {
   width: 100%;
-  height: 94%;
-  display: flex;
+  height: 100vh;
 }
 
-#image {
+.image {
   width: 50%;
   height: 100%;
+  object-fit: cover;
 }
 
 .container {
   width: 50%;
-  height: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-}
-
-#login {
-  align-self: center;
-  font-size: 2em;
-  margin-bottom: 20%;
+  flex-direction: column;
+  /* background-color: #f0f0f0;  */
 }
 
 .box {
-  width: 40%;
-  height: 60%;
-  padding: 2em;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
-  background-color: white;
-  border-radius: 8px;
-  margin: auto;
-  justify-content: center;
+  width: 50%;
+  height: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.user .password {
-  width: 100%;
-}
-
-#forgot_pwd {
-  margin-top: 8px;
-  margin-bottom: 15%;
-}
-
-input {
-  outline: none;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  padding: 5px;
-  margin: 10px;
-}
-
-#button {
-  cursor: pointer;
-  width: 75%;
-  border-radius: 10px;
+h1 {
+  font-size: xxx-large;
+  margin-bottom: 1.5rem;
 }
 
 .form {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  width: 85%;
+  text-align: center;
 }
 
-#signup {
-  margin-top: 40%;
-  font-size: 1em;
+.content-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.7rem;
+  padding-right: 1rem;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2)
+
+  
 }
+
+.eye {
+  width: 1.25rem;
+  object-fit: contain;
+}
+
+input {
+  border: none;
+  background-color: white;
+  outline: none;
+  padding: 0.8rem 1rem;
+  border-radius: 50px;
+}
+
+.button {
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  width: 78%;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  color: white;
+  background-color: rgba(250, 150, 50, 0.8);
+  transition: all 0.3 ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 0 0 10px rgba(250, 150, 50, 1);
+  background-color: rgba(250, 150, 50, 1)
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important; /* Cambia el color de fondo al mismo que el fondo del input */
+}
+
+.pwd {
+  font-size: smaller;
+}
+.sign_up {
+  font-size: smaller;
+  margin-top: 4rem;
+}
+
+p {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+
+
 </style>

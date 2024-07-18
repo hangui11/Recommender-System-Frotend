@@ -40,7 +40,7 @@ const currentYear = new Date().getFullYear()
                         </li>
                         <li>
                             <b>Interaction Layers: </b> The core of the NCF model involves combining user and item embeddings to capture their interactions. The architecture used is
-                            <i>Multi-Layer-Perceptron (MLP)</i>, a series of fully connected layers that learn high-prder interactions between users and items.
+                            <i>Multi-Layer-Perceptron (MLP)</i>, a series of fully connected layers that learn high-order interactions between users and items.
                             
                         </li>
                     </ul>
@@ -57,7 +57,7 @@ const currentYear = new Date().getFullYear()
                             feedback, like ratings.
                         </li>
                         <li>
-                            <b>optimization: </b> The model is trained using stochastic gradient descent (SGD) or other optimization algorithms, such as Adam or Adagrad, and are
+                            <b>Optimization: </b> The model is trained using stochastic gradient descent (SGD) or other optimization algorithms, such as Adam or Adagrad, and are
                             used to minimize the loss function and update the model parameters.
                         </li>
                     </ul>

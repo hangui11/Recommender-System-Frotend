@@ -88,7 +88,7 @@ const currentYear = new Date().getFullYear()
 }
 
 .body {
-    margin: 5% 3%;
+    margin: 3% 3%;
     padding: 0 6.5%;
 }
 
@@ -142,6 +142,7 @@ li {
 
 footer {
   margin: 0 3%;
+  margin-top: 5%;
   padding: 2% 10%;
   border-top: solid 1px rgba(0, 0, 0, 0.2);
   display: flex;
