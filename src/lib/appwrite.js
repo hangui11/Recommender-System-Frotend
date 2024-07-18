@@ -22,8 +22,10 @@ export const signIn = async (email, password) => {
         return session
     } catch (error) {
         const user = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('email', email)]);
-        if (user[0]) throw new Error('Wrong password')
-        else throw new Error('Not exist the user with email: ' + email)
+        alert(error.message)
+        if (user.documents[0]) throw new Error('Wrong password')
+        else if(! user.documents[0]) throw new Error('Not exist the user with email: ' + email);
+        else throw error
     } 
 }
 
@@ -38,7 +40,7 @@ export const signUp = async (email, password, username, avatarURL) => {
         
         if (! newAccount) throw new Error('Account creation failed')
 
-        await account.createEmailPasswordSession(email, password)
+        // await account.createEmailPasswordSession(email, password)
 
         const userDocuments = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId);
         const user_size = userDocuments.total; // Use the 'total' field to get the count of documents
@@ -72,7 +74,7 @@ export const getCurrentUser = async () => {
         const currentUser = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('accountId', currentAccount.$id)])
         if (! currentUser) throw new Error('No exist user related with account')
         return currentUser.documents[0] 
-    
+
     } catch (error) {
         alert(error.message)
     }
