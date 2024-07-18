@@ -17,6 +17,7 @@ import ItemPage from './components/models/ItemPage.vue'
 import MfPage from './components/models/MfPage.vue'
 import KnnPage from './components/models/KnnPage.vue'
 import NcfPage from './components/models/NcfPage.vue'
+import ForgotPasswordPage from './components/ForgotPwdPage.vue'
 
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
   { path: '/sign_up', component: SignUpPage },
   { path: '/about', component: AboutPage },
   { path: '/dashboard', component: DashboardPage, meta: { requiresAuth: true } },
+  { path: '/forgotPassword', component: ForgotPasswordPage},
   { path: '/models/trivial', component: TrivialPage },
   { path: '/models/user-to-user', component: UserPage},
   { path: '/models/item-to-item', component: ItemPage},

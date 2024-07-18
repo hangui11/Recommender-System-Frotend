@@ -22,7 +22,7 @@ export const signIn = async (email, password) => {
         return session
     } catch (error) {
         const user = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('email', email)]);
-        alert(error.message)
+        // alert(error.message)
         if (user.documents[0]) throw new Error('Wrong password')
         else if(! user.documents[0]) throw new Error('Not exist the user with email: ' + email);
         else throw error
@@ -82,6 +82,25 @@ export const getCurrentUser = async () => {
 
 
 export const verification = async () => {
+    account.createVerification('https://sunshine-movies.vercel.app/verfication')
+}
+
+
+export const forgotPassword = async (email) => {
+    try {
+        await account.createRecovery(email, 'https://sunshine-movies.vercel.app/forgotPassword')
+    } catch (error) {
+        console.log(error)
+        throw new Error(error)
+    }
     
-    const promise = account.createVerification('https://sunshine-movies.vercel.app/verfication')
+}
+
+export const resetPassword = async (secret, user_id, password) => {
+    try {
+        await account.updateRecovery(user_id, secret, password)
+    } catch (error) {
+        console.log(error)
+        throw new Error(error)
+    }
 }

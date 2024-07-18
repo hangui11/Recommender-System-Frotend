@@ -3,7 +3,7 @@ import movie_recommendation from '@/assets/images/recommender_system.jpg'
 import eye_closed from '@/assets/icons/eye_closed.svg'
 import eye_open from '@/assets/icons/eye_open.svg'
 import { ref } from 'vue';
-import { signIn } from '@/lib/appwrite';
+import { signIn, forgotPassword } from '@/lib/appwrite';
 import { useRouter } from 'vue-router';
 
 const email = ref('')
@@ -23,6 +23,19 @@ const sign_in = async () => {
   } catch (error) {
     alert(error.message)
   }
+}
+
+const forgot_password = async () => {
+  if (email.value == '') {
+    alert("Please enter your email to reset your password")
+    return
+  }
+  try {
+    await forgotPassword(email.value)
+  } catch (error) {
+    console.log(error)
+  }
+  alert("Forgot Password")
 }
 
 
@@ -47,11 +60,11 @@ const sign_in = async () => {
               <img v-if="eye_show" :src="eye_closed" class="eye"/>
             </div>
           </div>
-          <a href="/forgot_pwd" class="pwd">Forgot Password?</a>
+          <div class="pwd" @click="forgot_password">Forgot Password ?</div>
           <button class="button" type="submit">Sign in</button>
         </form>
         <div class="sign_up">
-          <p>Don't have an account? 
+          <p>Don't have an account ? 
             <a href="/sign_up">Sign Up now</a>
           </p>
         </div>
@@ -116,8 +129,6 @@ h1 {
   padding-right: 1rem;
   border-radius: 50px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2)
-
-  
 }
 
 .eye {
@@ -158,7 +169,18 @@ input:-webkit-autofill {
 
 .pwd {
   font-size: smaller;
+  margin-right: 2rem;
+  float: inline-end;
+  cursor: pointer;
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 0.65);
 }
+
+.pwd:hover {
+  color: blue;
+}
+
+
 .sign_up {
   font-size: smaller;
   margin-top: 4rem;
