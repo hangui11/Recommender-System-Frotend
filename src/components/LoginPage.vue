@@ -4,16 +4,21 @@ import eye_closed from '@/assets/icons/eye_closed.svg'
 import eye_open from '@/assets/icons/eye_open.svg'
 import { ref } from 'vue';
 import { signIn } from '@/lib/appwrite';
+import { useRouter } from 'vue-router';
+
 const email = ref('')
 const password = ref('')
 const eye_show = ref(false)
+const router = useRouter()
 
 
 const sign_in = async () => {
   try {
     const session = await signIn(email.value, password.value)
+    console.log(session)
     if (session) {
       alert("Login sucessfully")
+      // router.push('/dashboard')
     }
   } catch (error) {
     alert(error.message)

@@ -79,3 +79,9 @@ export const getCurrentUser = async () => {
         alert(error.message)
     }
 }
+
+
+export const verification = async () => {
+    
+    const promise = account.createVerification('https://sunshine-movies.vercel.app/verfication')
+}
