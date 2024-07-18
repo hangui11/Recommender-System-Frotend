@@ -257,7 +257,7 @@ input {
 }
 
 .model-item {
-  padding: 0.5rem 1.25rem;
+  padding: 1rem 1.25rem;
   cursor: pointer;
 }
 

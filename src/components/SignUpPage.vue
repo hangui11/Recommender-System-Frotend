@@ -3,32 +3,31 @@ import movie_recommendation from '@/assets/images/recommender_system.jpg'
 import eye_closed from '@/assets/icons/eye_closed.svg'
 import eye_open from '@/assets/icons/eye_open.svg'
 import { ref } from 'vue';
-import axios from 'axios';
+import { signUp } from '@/lib/appwrite';
 import { useRouter } from 'vue-router'
 
 const username = ref('')
 const password = ref('')
-const confirm_password = ref('')
+const email = ref('')
 const eye_show = ref(false)
 const router = useRouter()
 
 const sign_up = async () => {
   try {
-    await axios.get('https://sunshine-movies-backend.vercel.app/users/?username='+username.value)
-    alert('Username alredy exist')
-    return
+    let avatarURL = 'https://api.dicebear.com/9.x/adventurer/svg?seed=' + Math.floor(Math.random() * 1000);
+    if (username.value === 'admin') avatarURL = 'https://api.dicebear.com/9.x/adventurer/svg?seed=1'
+
+    const response = await signUp(email.value, password.value, username.value, avatarURL)
+    
+    console.log(response)
+    
+    if (response) {
+      alert('Sign up successfully')
+      router.push('/login')
+    }
+    
   } catch (error) {
-    if (error.response.status == 404) {
-      if (password.value != confirm_password.value) alert('Make sure that the passwords are the same')
-      try {
-        await axios.post('https://sunshine-movies-backend.vercel.app/users/?username='+username.value+'&password='+password.value)
-        alert('User created successfully')
-        router.push('/login')
-      } catch (error) {
-        alert(error.message)
-      }
-      
-    } 
+    alert(error.message)
   }
 }
 
@@ -46,6 +45,9 @@ const sign_up = async () => {
         <h1>Sign Up</h1>
         <form class="form" @submit.prevent="sign_up" autocomplete="off">
           <div class="content-form">
+            <input type="text" v-model="email" placeholder="Email" required autocomplete="email"/>
+          </div>
+          <div class="content-form">
             <input type="text" v-model="username" placeholder="Username" required autocomplete="username"/>
           </div>
           <div class="content-form">
@@ -55,13 +57,10 @@ const sign_up = async () => {
               <img v-if="eye_show" :src="eye_closed" class="eye"/>
             </div>
           </div>
-          <div class="content-form">
-            <input type="password" v-model="confirm_password" placeholder="Confirm Password" autocomplete="current-password" required />
-            
-          </div>
+          
           <button class="button" type="submit">Sign up</button>
         </form>
-        <div class="sign_up">
+        <div class="sign_in">
           <p>Already have an account? 
             <a href="/login">Log In</a>
           </p>
@@ -148,11 +147,11 @@ input {
   cursor: pointer;
   border: none;
   border-radius: 50px;
-  width: 78%;
+  width: 80%;
   font-size: 1rem;
   font-weight: 500;
   margin: 1rem 0;
-  padding: 0.5rem;
+  padding: 0.7rem;
   color: white;
   background-color: rgba(250, 150, 50, 0.8);
   transition: all 0.3 ease-in-out;
@@ -170,9 +169,9 @@ input:-webkit-autofill {
 .pwd {
   font-size: smaller;
 }
-.sign_up {
+.sign_in {
   font-size: smaller;
-  margin-top: 4rem;
+  margin-top: 2.5rem;
 }
 
 p {

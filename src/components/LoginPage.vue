@@ -3,23 +3,20 @@ import movie_recommendation from '@/assets/images/recommender_system.jpg'
 import eye_closed from '@/assets/icons/eye_closed.svg'
 import eye_open from '@/assets/icons/eye_open.svg'
 import { ref } from 'vue';
-import axios from 'axios';
-
-const username = ref('')
+import { signIn } from '@/lib/appwrite';
+const email = ref('')
 const password = ref('')
 const eye_show = ref(false)
 
 
 const sign_in = async () => {
   try {
-    const response = await axios.get('https://sunshine-movies-backend.vercel.app/users/?username='+username.value)
-    // console.log(response.data)
-    if (response.data.password != password.value) alert('Invalid password')
-    else {
-      alert('Sucessfull')
+    const session = await signIn(email.value, password.value)
+    if (session) {
+      alert("Login sucessfully")
     }
   } catch (error) {
-    alert('Invalid username')
+    alert(error.message)
   }
 }
 
@@ -32,12 +29,11 @@ const sign_in = async () => {
     <img :src="movie_recommendation" alt="recommender system" class="image"/>
     
     <div class="container">
-      <!-- <a href="/">back</a> -->
       <div class="box">
         <h1>Login</h1>
         <form class="form" @submit.prevent="sign_in" autocomplete="off">
           <div class="content-form">
-            <input type="text" v-model="username" id="username" placeholder="Username" required autocomplete="username"/>
+            <input type="text" v-model="email" id="email" placeholder="Email" required autocomplete="email"/>
           </div>
           <div class="content-form">
             <input :type="eye_show ? 'text' : 'password'" v-model="password" id="password" placeholder="Password" autocomplete="current-password" required />
@@ -136,11 +132,11 @@ input {
   cursor: pointer;
   border: none;
   border-radius: 50px;
-  width: 78%;
+  width: 80%;
   font-size: 1rem;
   font-weight: 500;
   margin: 1rem 0;
-  padding: 0.5rem;
+  padding: 0.7rem;
   color: white;
   background-color: rgba(250, 150, 50, 0.8);
   transition: all 0.3 ease-in-out;
