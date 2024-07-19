@@ -4,6 +4,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 import sun from '@/assets/icons/sun.svg'
 import search from '@/assets/icons/search.png'
+import { existCurrentUser } from '@/lib/appwrite';
 
 const router = useRouter()
 
@@ -11,8 +12,10 @@ const home = () => {
   window.location.href = '/'
 }
 
-const login = () => {
-  router.push('/login')
+const login = async () => {
+  const existUser = await existCurrentUser()
+  if (existUser) router.push('/dashboard')
+  else router.push('/login')
 }
 
 const about = () => {

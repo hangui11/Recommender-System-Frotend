@@ -10,11 +10,14 @@ import personalized_recommendation from '@/assets/images/personalized-recommenda
 import ModelComponent from '@/components/ModelComponent.vue'
 import ModelDescription from '@/components/ModelDescription.vue'
 import NavContainer from '@/components/NavContainer.vue'
+import { existCurrentUser } from '@/lib/appwrite'
 
 const router = useRouter()
 
-const login = () => {
-  router.push('/login')
+const login = async () => {
+  const existUser = await existCurrentUser()
+  if (existUser) router.push('/dashboard')
+  else router.push('/login')
 }
 
 const sign_up = () => {
