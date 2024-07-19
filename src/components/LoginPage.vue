@@ -3,7 +3,7 @@ import movie_recommendation from '@/assets/images/recommender_system.jpg'
 import eye_closed from '@/assets/icons/eye_closed.svg'
 import eye_open from '@/assets/icons/eye_open.svg'
 import { ref } from 'vue';
-import { signIn, forgotPassword } from '@/lib/appwrite';
+import { signIn } from '@/lib/appwrite';
 import { useRouter } from 'vue-router';
 
 const email = ref('')
@@ -18,25 +18,28 @@ const sign_in = async () => {
     console.log(session)
     if (session) {
       alert("Login sucessfully")
-      // router.push('/dashboard')
+      router.push('/dashboard')
     }
   } catch (error) {
     alert(error.message)
   }
 }
 
-const forgot_password = async () => {
-  if (email.value == '') {
-    alert("Please enter your email to reset your password")
-    return
-  }
-  try {
-    await forgotPassword(email.value)
-  } catch (error) {
-    console.log(error)
-  }
-  alert("Forgot Password")
+import { Notivue, Notification, push, useNotivue } from 'notivue';
+const config = useNotivue()
+
+config.update({
+  position: 'top-center'
+})
+
+const setNotification = () => {
+  push.success({
+    title: 'Success',
+    message: 'Your message has been sent to your friend hangui11.',
+    duration: 1000
+  })
 }
+
 
 
 </script>
@@ -60,7 +63,7 @@ const forgot_password = async () => {
               <img v-if="eye_show" :src="eye_closed" class="eye"/>
             </div>
           </div>
-          <div class="pwd" @click="forgot_password">Forgot Password ?</div>
+          <div class="pwd" @click="router.push('/forgotPassword')">Forgot Password ?</div>
           <button class="button" type="submit">Sign in</button>
         </form>
         <div class="sign_up">
@@ -71,6 +74,15 @@ const forgot_password = async () => {
       </div>
     </div>
   </div>
+
+  <!-- <button @click="setNotification">Push</button>
+
+  <Notivue v-slot="item">
+    <Notification :item="item" />
+  </Notivue> -->
+
+
+
 </template>
 
 

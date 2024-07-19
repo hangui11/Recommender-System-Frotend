@@ -20,6 +20,7 @@ const login = () => {
 const sign_up = () => {
   router.push('/sign_up')
   // window.location.href = 'https://www.youtube.com/watch?v=Mhy5_DpSDhM';
+  // window.open(url, '_blank'); // '_blank' indica abrir en una nueva pestaña
 }
 
 

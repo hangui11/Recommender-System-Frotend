@@ -29,6 +29,15 @@ export const signIn = async (email, password) => {
     } 
 }
 
+export const logOut = async() => {
+    try {
+        const session = await account.deleteSession('current')
+        return session
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
 export const signUp = async (email, password, username, avatarURL) => {
     try {
         const newAccount = await account.create(
@@ -37,7 +46,6 @@ export const signUp = async (email, password, username, avatarURL) => {
             password,
             username
         )
-        
         if (! newAccount) throw new Error('Account creation failed')
 
         // await account.createEmailPasswordSession(email, password)
@@ -71,12 +79,27 @@ export const getCurrentUser = async () => {
 
         if (! currentAccount) throw new Error('No exist login account')
 
-        const currentUser = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('accountId', currentAccount.$id)])
+        const currentUser = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('account_id', currentAccount.$id)])
         if (! currentUser) throw new Error('No exist user related with account')
         return currentUser.documents[0] 
 
     } catch (error) {
-        alert(error.message)
+        alert('Do not have user logged')
+    }
+}
+
+export const existCurrentUser = async () => {
+    try {
+        const currentAccount = await account.get()
+
+        if (! currentAccount) return false
+
+        const currentUser = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('account_id', currentAccount.$id)])
+        if (! currentUser) return false
+        return true
+
+    } catch (error) {
+        return false
     }
 }
 
@@ -104,3 +127,17 @@ export const resetPassword = async (secret, user_id, password) => {
         throw new Error(error)
     }
 }
+
+export const getUserEmail = async (user_id) => {
+    console.log(user_id)
+    try {
+        const result = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('account_id', user_id)])
+        const user = result.documents[0]
+        
+        console.log(user)
+        return user.email
+    } catch (error) {
+        throw new Error(error)
+    }
+} 
+

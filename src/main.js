@@ -1,9 +1,12 @@
 import './assets/main.css'
+import 'notivue/notification.css' // Only needed if using built-in <Notification />
+import 'notivue/animations.css' // Only needed if using default animations
 
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store'
 import VueScrollTo from 'vue-scrollto'
+import { createNotivue } from 'notivue'
 
 import { createRouter, createWebHistory } from 'vue-router'
 import TheHome from './components/TheHome.vue'
@@ -18,6 +21,7 @@ import MfPage from './components/models/MfPage.vue'
 import KnnPage from './components/models/KnnPage.vue'
 import NcfPage from './components/models/NcfPage.vue'
 import ForgotPasswordPage from './components/ForgotPwdPage.vue'
+import { existCurrentUser } from './lib/appwrite'
 
 
 const routes = [
@@ -44,9 +48,9 @@ const router = createRouter({
   }
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach( async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
-  const isAuthenticated = store.getters.isAuthenticated
+  const isAuthenticated = await existCurrentUser()
 
   if (requiresAuth && !isAuthenticated) {
     next('/login')
@@ -55,4 +59,6 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-createApp(App).use(router).use(store).use(VueScrollTo).mount('#app')
+const notivue = createNotivue()
+
+createApp(App).use(router).use(store).use(VueScrollTo).use(notivue).mount('#app')

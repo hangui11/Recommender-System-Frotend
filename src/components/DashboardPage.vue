@@ -1,26 +1,47 @@
 <!-- Dashboard.vue -->
+<script setup>
+import { getCurrentUser, logOut } from '@/lib/appwrite';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+const username = ref('')
+
+onMounted( async () => {
+  try {
+    const current_user = await getCurrentUser()
+    username.value = current_user.username
+  } catch (error) {
+    alert('Do not have user logged')
+  }
+})
+
+const log_out = async () => {
+  try {
+    const session = await logOut()
+    console.log(session)
+    setTimeout(() => {
+      router.replace('/login')
+    }, 500);
+  } catch (error) {
+    alert(error.message)
+  }
+}
+
+
+
+</script>
+
+
+
+
 <template>
   <div>
     <h1>Dashboard</h1>
-    <p v-if="isAuthenticated">Welcome, {{ user.username }}!</p>
-    <p v-else>Please log in to access the dashboard.</p>
-    <button @click="logout" v-if="isAuthenticated">Logout</button>
+    <p >Welcome, {{ username }}!</p>
+    <!-- <p >Please log in to access the dashboard.</p> -->
+    <button @click="log_out">Logout</button>
   </div>
 </template>
 
-<script setup>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
 
-const store = useStore()
-const router = useRouter()
-
-const isAuthenticated = computed(() => store.getters.isAuthenticated)
-const user = computed(() => store.state.user)
-
-const logout = () => {
-  store.dispatch('logout')
-  router.push('/login')
-}
-</script>
