@@ -6,11 +6,13 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter()
 const username = ref('')
+const user_avatar = ref('')
 
 onMounted( async () => {
   try {
     const current_user = await getCurrentUser()
     username.value = current_user.username
+    user_avatar.value = current_user.avatar
   } catch (error) {
     alert('Do not have user logged')
   }
@@ -39,6 +41,7 @@ const log_out = async () => {
   <div>
     <h1>Dashboard</h1>
     <p >Welcome, {{ username }}!</p>
+    <img :src="user_avatar" width="100px"/>
     <!-- <p >Please log in to access the dashboard.</p> -->
     <button @click="log_out">Logout</button>
   </div>

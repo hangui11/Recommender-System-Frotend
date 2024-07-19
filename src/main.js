@@ -54,10 +54,10 @@ router.beforeEach( async (to, from, next) => {
 
   if (requiresAuth) {
     const isAuthenticated = await existCurrentUser()
-    if (! isAuthenticated) next('/login');
-    else next()
+    if (! isAuthenticated) return next('/login');
+    else return next()
   }
-  next()
+  return next()
 })
 
 const notivue = createNotivue()
