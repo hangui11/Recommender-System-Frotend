@@ -50,13 +50,14 @@ const router = createRouter({
 
 router.beforeEach( async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
-  const isAuthenticated = await existCurrentUser()
+  
 
-  if (requiresAuth && !isAuthenticated) {
-    next('/login')
-  } else {
-    next()
+  if (requiresAuth) {
+    const isAuthenticated = await existCurrentUser()
+    if (! isAuthenticated) next('/login');
+    else next()
   }
+  next()
 })
 
 const notivue = createNotivue()

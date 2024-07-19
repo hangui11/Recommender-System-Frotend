@@ -86,7 +86,7 @@ const selectUp = () => {
 const enterModel = (modelIndex) => {
   const modelsFiltered = filtereModel()
   for (let i = 0; i < models.length; ++i) {
-    console.log(input.value)
+    // console.log(input.value)
     if (input.value.toLowerCase() == models[i].toLowerCase()) {
       const auxValue = input.value
       input.value = ''
