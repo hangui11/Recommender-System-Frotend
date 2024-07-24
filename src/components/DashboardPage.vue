@@ -43,8 +43,14 @@ const log_out = async () => {
     <p >Welcome, {{ username }}!</p>
     <img :src="user_avatar" width="100px"/>
     <!-- <p >Please log in to access the dashboard.</p> -->
-    <button @click="log_out">Logout</button>
+    <button @click="log_out" class="logout">Logout</button>
   </div>
 </template>
 
 
+<style scoped>
+* {
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+</style>

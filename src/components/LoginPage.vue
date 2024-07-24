@@ -17,7 +17,7 @@ const sign_in = async () => {
     const session = await signIn(email.value, password.value)
     console.log(session)
     if (session) {
-      alert("Login sucessfully")
+      // alert("Login sucessfully")
       router.push('/dashboard')
     }
   } catch (error) {
@@ -154,6 +154,7 @@ input {
   outline: none;
   padding: 0.8rem 1rem;
   border-radius: 50px;
+  width: 100%;
 }
 
 .button {

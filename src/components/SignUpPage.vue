@@ -141,6 +141,7 @@ input {
   outline: none;
   padding: 0.8rem 1rem;
   border-radius: 50px;
+  width: 100%;
 }
 
 .button {

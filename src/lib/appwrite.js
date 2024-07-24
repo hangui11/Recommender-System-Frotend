@@ -4,7 +4,9 @@ export const appwriteConfig = {
     endpoints: 'https://cloud.appwrite.io/v1',
     projectId: '668e4a8b002e7c630f01',
     databaseId: '66990f4f0017ddd4f4b5',
-    userCollectionId: '66990f6d000ffedc261d'
+    userCollectionId: '66990f6d000ffedc261d',
+    movieCollectioId: '669a2e750039ed43c7b1',
+    ratingCollectionId: '669a2ffd00262479f9fa'
 }
 
 const client = new Client();
@@ -141,3 +143,12 @@ export const getUserEmail = async (user_id) => {
     }
 } 
 
+export const getLatestMovies = async() => {
+    try {
+        const result = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.movieCollectioId, [Query.orderDesc('year', Query.limit(10))])
+        return result.documents
+    } catch (error) {
+        alert('Error in getLatestMovies: ' + error.message)
+        throw new Error('Error in getLatestMovies: ' + error.message)
+    }
+}
