@@ -1,8 +1,9 @@
 <!-- Dashboard.vue -->
 <script setup>
-import { getCurrentUser, logOut } from '@/lib/appwrite';
+import { getCurrentUser } from '@/lib/appwrite';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import DashboardContainer from './DashboardContainer.vue';
 
 const router = useRouter()
 const username = ref('')
@@ -18,17 +19,7 @@ onMounted( async () => {
   }
 })
 
-const log_out = async () => {
-  try {
-    const session = await logOut()
-    console.log(session)
-    setTimeout(() => {
-      router.replace('/login')
-    }, 500);
-  } catch (error) {
-    alert(error.message)
-  }
-}
+
 
 
 
@@ -39,11 +30,12 @@ const log_out = async () => {
 
 <template>
   <div>
-    <h1>Dashboard</h1>
-    <p >Welcome, {{ username }}!</p>
-    <img :src="user_avatar" width="100px"/>
-    <!-- <p >Please log in to access the dashboard.</p> -->
-    <button @click="log_out" class="logout">Logout</button>
+    <DashboardContainer :avatar="user_avatar" :username="username"/>
+    <div class="body">
+      <h1 >Welcome, {{ username }} !</h1>
+
+    </div>
+    
   </div>
 </template>
 
@@ -51,6 +43,11 @@ const log_out = async () => {
 <style scoped>
 * {
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.body {
+  position: relative;
+  margin: 3% 5%; 
 }
 
 </style>

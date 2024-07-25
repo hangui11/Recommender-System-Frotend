@@ -25,20 +25,20 @@ const sign_in = async () => {
   }
 }
 
-import { Notivue, Notification, push, useNotivue } from 'notivue';
-const config = useNotivue()
+// import { Notivue, Notification, push, useNotivue } from 'notivue';
+// const config = useNotivue()
 
-config.update({
-  position: 'top-center'
-})
+// config.update({
+//   position: 'top-center'
+// })
 
-const setNotification = () => {
-  push.success({
-    title: 'Success',
-    message: 'Your message has been sent to your friend hangui11.',
-    duration: 1000
-  })
-}
+// const setNotification = () => {
+//   push.success({
+//     title: 'Success',
+//     message: 'Your message has been sent to your friend hangui11.',
+//     duration: 1000
+//   })
+// }
 
 
 

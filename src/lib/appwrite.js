@@ -42,6 +42,10 @@ export const logOut = async() => {
 
 export const signUp = async (email, password, username, avatarURL) => {
     try {
+
+        const taken = await existUsername(username)
+        if (taken) throw new Error('Username is already taken')
+
         const newAccount = await account.create(
             ID.unique(),
             email,
@@ -105,6 +109,15 @@ export const existCurrentUser = async () => {
     }
 }
 
+export const existUsername = async (username) => {
+    try {
+        const result = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('username', username)])
+        return result.total > 0
+    } catch (error) {
+        console.error('Error checking username:', error.message);
+        throw new Error('Error checking username');
+    }
+}
 
 export const verification = async () => {
     account.createVerification('https://sunshine-movies.vercel.app/verfication')
@@ -151,4 +164,34 @@ export const getLatestMovies = async() => {
         alert('Error in getLatestMovies: ' + error.message)
         throw new Error('Error in getLatestMovies: ' + error.message)
     }
+}
+
+
+export const getAllSearchMovies = async (query, limit=25) => {
+    let allDocuments = [];
+    let offset = 0;
+    let hasMore = true;
+    while (hasMore) {
+        try {
+            const result = await databases.listDocuments(
+                appwriteConfig.databaseId,
+                appwriteConfig.movieCollectioId, 
+                [
+                    Query.contains('title', query),
+                    Query.limit(limit),
+                    Query.offset(offset)
+                ]
+            )
+            if (result.documents.length > 0) {
+                allDocuments = allDocuments.concat(result.documents);
+                offset += limit; // Actualiza el offset para la siguiente solicitud
+            } else {
+                hasMore = false; // No hay más documentos
+            }
+        } catch (error) {
+            console.log(error.message)
+            throw new Error
+        }
+    }
+    return allDocuments;
 }
