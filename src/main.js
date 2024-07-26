@@ -21,8 +21,13 @@ import MfPage from './components/models/MfPage.vue'
 import KnnPage from './components/models/KnnPage.vue'
 import NcfPage from './components/models/NcfPage.vue'
 import ForgotPasswordPage from './components/ForgotPwdPage.vue'
+import NotFoundPage from './components/NotFoundPage.vue'
 import { existCurrentUser } from './lib/appwrite'
 
+// Vuetify
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
 const routes = [
   { path: '/', component: TheHome },
@@ -36,7 +41,8 @@ const routes = [
   { path: '/models/item-to-item', component: ItemPage},
   { path: '/models/matrix-factorization', component: MfPage},
   { path: '/models/k-nearest-neighbor', component: KnnPage},
-  { path: '/models/neuronal-collaborative-filtering', component: NcfPage} 
+  { path: '/models/neuronal-collaborative-filtering', component: NcfPage} ,
+  { path: '/:pathMatch(.*)*', component: NotFoundPage } // Ruta comodín para manejar 404
 ]
 
 const router = createRouter({
@@ -62,4 +68,9 @@ router.beforeEach( async (to, from, next) => {
 
 const notivue = createNotivue()
 
-createApp(App).use(router).use(store).use(VueScrollTo).use(notivue).mount('#app')
+const vuetify = createVuetify({
+  components,
+  directives,
+})
+
+createApp(App).use(router).use(store).use(VueScrollTo).use(notivue).use(vuetify).mount('#app')

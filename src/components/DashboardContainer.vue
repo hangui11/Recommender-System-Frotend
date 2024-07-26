@@ -28,6 +28,22 @@ const props = defineProps({
 
 const isExpanded = ref(false)
 const input = ref('')
+let userContainer = ref(null)
+
+const handleClickOutside = (event) => {
+  
+  if (userContainer.value && !userContainer.value.contains(event.target)) {
+    isExpanded.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 
 const dashboard = () => {
   window.location.href = '/dashboard'
@@ -63,7 +79,7 @@ const findAllMovies = async () => {
         <div class="name" @click="dashboard">Dashboard</div>
       </div>
             
-      <div class="nav-search" ref="searchContainer">
+      <div class="nav-search">
         <img :src="search" class="search-logo"/>
         <input id="search" type="text" v-model="input" placeholder="Search a movie" @keydown.enter="findAllMovies"/>
       </div>
@@ -73,8 +89,9 @@ const findAllMovies = async () => {
             <img :src="props.avatar" width="55px" class="avatar"/>
             <p class="username">{{ props.username }}</p>
         </div>
-        <img class="arrow" :src="isExpanded ? chevron_up : chevron_down" @click="isExpanded = !isExpanded"/>
-        <div v-if="isExpanded" class="box">
+        <img class="arrow" ref="userContainer" :src="isExpanded ? chevron_up : chevron_down" @click="isExpanded = !isExpanded"/>
+        <transition name="fade">
+          <div v-if="isExpanded" class="box">
             <div class="box-item">
                 <img :src="profile" class="box-icon"/>
                 <p>Profile</p>
@@ -87,7 +104,9 @@ const findAllMovies = async () => {
                 <img :src="signout" class="box-icon"/>
                 <p>Sign Out</p>
             </div>
-        </div>
+          </div>
+        </transition>
+        
       </div>
       
       
@@ -145,6 +164,7 @@ const findAllMovies = async () => {
 .nav-user {
     position: relative;
     display: flex;
+    z-index: 1000;
 }
 
 .user {
@@ -210,13 +230,15 @@ input {
     position: absolute;
     width: 100%;
     color: black;
-    top: 132%;
+    top: 0%;
     transition: all 0.3 ease;
     border-end-start-radius: 20px;
     border-end-end-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding-left: 1rem;
     font-weight: 400;
+    z-index: -1;
+    transform: translateY(45%);
 }
 
 .box-item {
@@ -231,6 +253,16 @@ input {
     width: 1.2rem;
     margin-right: 0.75rem;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.fade-enter, .fade-leave-to {
+  transform: scaleY(0.1);
+  opacity: 0;
+}
+
 
 @media screen and (max-width: 768px) {
   .nav-container {
