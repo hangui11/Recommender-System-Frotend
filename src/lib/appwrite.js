@@ -158,7 +158,7 @@ export const getUserEmail = async (user_id) => {
 
 export const getLatestMovies = async() => {
     try {
-        const result = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.movieCollectioId, [Query.orderDesc('year', Query.limit(10))])
+        const result = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.movieCollectioId, [Query.orderDesc('$createdAt'), Query.limit(20)])
         return result.documents
     } catch (error) {
         alert('Error in getLatestMovies: ' + error.message)

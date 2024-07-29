@@ -1,22 +1,25 @@
 <!-- Dashboard.vue -->
 <script setup>
-import { getCurrentUser } from '@/lib/appwrite';
+import { getCurrentUser, getLatestMovies } from '@/lib/appwrite';
 import { onMounted, onUnmounted, ref } from 'vue';
 // import { useRouter } from 'vue-router';
 import DashboardContainer from './DashboardContainer.vue';
 import chevron_down from '@/assets/icons/chevron_down.svg'
 import chevron_up from '@/assets/icons/chevron_up.svg'
+import MoviesContainer from './MoviesContainer.vue';
+
 
 // const router = useRouter()
 const username = ref('')
 const user_avatar = ref('')
 const models = ['Trivial', 'User-to-User', 'Item-to-Item', 'Matrix Factorization', 'K-Nearest-Neighbor', 'Neuronal Collaborative Filtering']
-
+let latestMovies = []
 
 const selectedModel = ref(models[0])
 const isExpanded = ref(false)
 const start = ref(false)
 const modelsContainer = ref(null)
+const haveLatestMovies = ref(false)
 
 const handleClickOutside = (event) => {
   if (modelsContainer.value && !modelsContainer.value.contains(event.target)) {
@@ -33,6 +36,15 @@ onMounted( async () => {
   } catch (error) {
     alert('Do not have user logged')
   }
+
+  try {
+    latestMovies = await getLatestMovies()
+    haveLatestMovies.value = true
+    console.log(latestMovies)
+  } catch (error) {
+    alert('Error when get latest movies')
+  }
+  
   document.addEventListener('click', handleClickOutside)
 })
 
@@ -44,6 +56,10 @@ onUnmounted(() => {
 const modelSelect = (model) => {
   selectedModel.value = model
   isExpanded.value = false
+}
+
+const getRecommendationMovies = () => {
+  console.log(selectedModel.value)
 }
 
 
@@ -69,12 +85,16 @@ const modelSelect = (model) => {
           </div>
         
         </div>
-        <button>BUTTON</button>
+        <button @click="getRecommendationMovies">CONFIRM</button>
       </div>
-      
     </div>
+
+    <MoviesContainer v-if="haveLatestMovies" :movies="latestMovies"/>
     
   </div>
+
+
+  
 </template>
 
 
@@ -106,10 +126,13 @@ p {
   padding-inline: 1.5rem;
   border-bottom: 2px solid;
   margin-top: 1rem;
+  z-index: 1000;
 }
 
 .arrow {
+    height: 2rem;
     width: 2rem;
+    cursor: pointer;
 }
 
 .models-box {
@@ -175,6 +198,7 @@ button:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+
 @keyframes models-enter {
   from {
     top: -135%;
@@ -201,4 +225,6 @@ button:hover {
   }
   
 }
+
+
 </style>
