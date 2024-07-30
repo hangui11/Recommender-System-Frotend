@@ -164,7 +164,7 @@ const findAllMovies = async () => {
 .nav-user {
     position: relative;
     display: flex;
-    z-index: 1000;
+    z-index: 900;
 }
 
 .user {
@@ -239,6 +239,7 @@ input {
     font-weight: 400;
     z-index: -1;
     transform: translateY(45%);
+    background-color: white;
 }
 
 .box-item {

@@ -24,6 +24,8 @@ import ForgotPasswordPage from './components/ForgotPwdPage.vue'
 import NotFoundPage from './components/NotFoundPage.vue'
 import { existCurrentUser } from './lib/appwrite'
 
+import vue3StarRatings from 'vue3-star-ratings'
+
 // Vuetify
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
@@ -73,4 +75,4 @@ const vuetify = createVuetify({
   directives,
 })
 
-createApp(App).use(router).use(store).use(VueScrollTo).use(notivue).use(vuetify).mount('#app')
+createApp(App).use(router).use(store).use(VueScrollTo).use(notivue).use(vuetify).component('vue3-star-ratings', vue3StarRatings).mount('#app')

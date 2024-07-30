@@ -195,3 +195,80 @@ export const getAllSearchMovies = async (query, limit=25) => {
     }
     return allDocuments;
 }
+
+
+export const getAllDocuments = async (collectionId, limit=25) => {
+    let allDocuments = [];
+    let offset = 0;
+    let hasMore = true;
+
+    while (hasMore) {
+        try {
+            const result = await databases.listDocuments(
+                appwriteConfig.databaseId,
+                collectionId, 
+                [
+                    Query.limit(limit),
+                    Query.offset(offset)
+                ]
+            )
+            if (result.documents.length > 0) {
+                allDocuments = allDocuments.concat(result.documents);
+                offset += limit; // Actualiza el offset para la siguiente solicitud
+            } else {
+                hasMore = false; // No hay más documentos
+            }
+        } catch (error) {
+            console.log(error.message)
+            throw new Error
+        }
+    }
+    return allDocuments;
+}
+
+export const getTrendingMovies = async() => {
+    try {
+        const ratings = await getAllDocuments(appwriteConfig.ratingCollectionId)
+        const movies = await getAllDocuments(appwriteConfig.movieCollectioId)
+
+        let total_ratings = {}
+        let mean_ratings = {}
+        for (let i = 0; i < ratings.length; ++i) {
+            let movie_id = ratings[i].movie_id
+            if (movie_id in total_ratings) {
+                total_ratings[movie_id].rating += ratings[i].rating
+                total_ratings[movie_id].size += 1
+            }
+            else {
+                total_ratings[movie_id] = {rating: ratings[i].rating, size: 1}
+            }
+        }
+
+        
+
+        for (let movie_id in total_ratings) {
+            mean_ratings[movie_id] = total_ratings[movie_id].rating / total_ratings[movie_id].size
+        }
+
+        let result = movies
+        for (let i = 0; i < result.length; ++i) {
+            let movie_id = result[i].movie_id
+            if (movie_id in mean_ratings) {
+                result[i].mean_rating = mean_ratings[movie_id]
+            }
+            else {
+                result[i].mean_rating = 0
+            }
+        }
+        result = result.sort((a, b) => b.mean_rating - a.mean_rating)
+        return result.slice(0, 10)
+
+    } catch (error) {
+        alert(error.message)
+        throw new Error(error)
+    }
+
+    
+
+
+}

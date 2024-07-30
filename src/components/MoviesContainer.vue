@@ -12,6 +12,10 @@ const props = defineProps({
     movies: {
         type: Array,
         required: true
+    },
+    name: {
+      type: String,
+      required: true
     }
 })
 
@@ -39,6 +43,7 @@ const prevSlide = () => {
 
 
 <template>
+    <h1>{{ props.name }}</h1>
     <div class="latestMovies">
       <img :src="arrow_prev" class="arrow" @click="prevSlide"/>
       <div class="movies-container" >
@@ -48,7 +53,6 @@ const prevSlide = () => {
             <div>{{ movie.title }}</div>
           </div>
         </div>
-        
       </div>
       <img :src="arrow_next" class="arrow" @click="nextSlide"/>
     </div>
@@ -56,6 +60,12 @@ const prevSlide = () => {
 
 
 <style scoped>
+
+h1 {
+  margin: 0% 16%;
+  margin-top: 4%;
+}
+
 .latestMovies {
   margin: 1% 6%;
   display: flex;
@@ -83,10 +93,12 @@ const prevSlide = () => {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   transform: scale(0.9);
+  font-weight: 500;
 }
 
 .movie:hover {
   transform: scale(1);
+  
 }
 
 .movie-image {

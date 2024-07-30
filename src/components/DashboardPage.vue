@@ -1,7 +1,7 @@
 <!-- Dashboard.vue -->
 <script setup>
-import { getCurrentUser, getLatestMovies } from '@/lib/appwrite';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { getCurrentUser, getLatestMovies, getTrendingMovies } from '@/lib/appwrite';
+import { onMounted, onUnmounted, ref, watch, nextTick } from 'vue';
 // import { useRouter } from 'vue-router';
 import DashboardContainer from './DashboardContainer.vue';
 import chevron_down from '@/assets/icons/chevron_down.svg'
@@ -14,19 +14,27 @@ const username = ref('')
 const user_avatar = ref('')
 const models = ['Trivial', 'User-to-User', 'Item-to-Item', 'Matrix Factorization', 'K-Nearest-Neighbor', 'Neuronal Collaborative Filtering']
 let latestMovies = []
+let trendingMovies = []
 
 const selectedModel = ref(models[0])
 const isExpanded = ref(false)
 const start = ref(false)
 const modelsContainer = ref(null)
 const haveLatestMovies = ref(false)
+const haveTrendingMovies = ref(false)
+const pageHeight = ref(window.innerHeight)
+const isLoading = ref(true)
 
 const handleClickOutside = (event) => {
   if (modelsContainer.value && !modelsContainer.value.contains(event.target)) {
     isExpanded.value = false
   }
 }
-
+const updatePageHeight = () => {
+  nextTick(() => {
+    pageHeight.value = document.documentElement.scrollHeight;
+  });
+};
 
 onMounted( async () => {
   try {
@@ -42,9 +50,19 @@ onMounted( async () => {
     haveLatestMovies.value = true
     console.log(latestMovies)
   } catch (error) {
-    alert('Error when get latest movies')
+    alert('Error getting latest movies')
+  }
+
+  try {
+    trendingMovies = await getTrendingMovies()
+    haveTrendingMovies.value = true
+    console.log(trendingMovies)
+  } catch (error) {
+    alert('Error getting trending movies')
   }
   
+  updatePageHeight();
+  isLoading.value = false
   document.addEventListener('click', handleClickOutside)
 })
 
@@ -62,14 +80,21 @@ const getRecommendationMovies = () => {
   console.log(selectedModel.value)
 }
 
-
+watch([latestMovies, trendingMovies], () => {
+  updatePageHeight()
+});
 </script>
 
 
 
 
 <template>
-  <div>
+  <div class="loading-status" :style="{height: `${pageHeight}px`}" v-if="isLoading" >
+    <v-progress-circular color="rgba(250, 150, 50, 1)" model-value="20" :size="128" :width="12" indeterminate="true" class="loading-circular"></v-progress-circular>
+    <h1>LOADING THE COMPONENTS . . .</h1>
+  </div>
+  
+  <div v-else class="components">
     <DashboardContainer :avatar="user_avatar" :username="username"/>
     <div class="body">
       <h1 >Welcome, {{ username }} 🤗!</h1>
@@ -89,30 +114,46 @@ const getRecommendationMovies = () => {
       </div>
     </div>
 
-    <MoviesContainer v-if="haveLatestMovies" :movies="latestMovies"/>
-    
+    <MoviesContainer v-if="haveLatestMovies" :movies="latestMovies" name="Latest Movies"/>
+
+    <MoviesContainer v-if="haveTrendingMovies" :movies="trendingMovies" name="Trending Movies"/>
+
   </div>
 
-
-  
 </template>
 
 
 <style scoped>
+
 * {
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+.loading-status {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* height: 100%; */
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 20000;
+}
+
+.components {
+  padding-bottom: 5rem;
+}
+
 .body {
   position: relative;
-  margin: 3% 6%; 
+  margin: 3% 13%; 
 }
 
 p {
   font-size: large;
   font-weight: 500;
 }
-
 
 .combobox {
   cursor: pointer;
@@ -121,12 +162,12 @@ p {
   align-items: center;
   border-radius: 5px;
   height: 3.5rem;
-  width: 44%;
+  width: 50%;
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
   padding-inline: 1.5rem;
   border-bottom: 2px solid;
   margin-top: 1rem;
-  z-index: 1000;
+  z-index: 900;
 }
 
 .arrow {
