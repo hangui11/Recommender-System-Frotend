@@ -25,6 +25,8 @@ const haveTrendingMovies = ref(false)
 const pageHeight = ref(window.innerHeight)
 const isLoading = ref(true)
 
+const currentYear = new Date().getFullYear()
+
 const handleClickOutside = (event) => {
   if (modelsContainer.value && !modelsContainer.value.contains(event.target)) {
     isExpanded.value = false
@@ -117,8 +119,12 @@ watch([latestMovies, trendingMovies], () => {
     <MoviesContainer v-if="haveLatestMovies" :movies="latestMovies" name="Latest Movies"/>
 
     <MoviesContainer v-if="haveTrendingMovies" :movies="trendingMovies" name="Trending Movies"/>
-
+    <div class="copyright">
+        &copy; {{ currentYear }} Sunshine Movies. All rights reserved.
+    </div>
   </div>
+
+  
 
 </template>
 
@@ -137,13 +143,10 @@ watch([latestMovies, trendingMovies], () => {
   justify-content: center;
   width: 100%;
   /* height: 100%; */
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(226, 226, 226, 0.1);
   z-index: 20000;
 }
 
-.components {
-  padding-bottom: 5rem;
-}
 
 .body {
   position: relative;
@@ -239,6 +242,11 @@ button:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.copyright {
+  padding: 2% 13%;
+  background-color: rgba(250, 150, 50, 0.5)
+
+}
 
 @keyframes models-enter {
   from {

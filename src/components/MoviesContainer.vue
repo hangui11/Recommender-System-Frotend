@@ -39,6 +39,10 @@ const prevSlide = () => {
   if (currentSlide.value > 0) currentSlide.value -= slideToMove
   else currentSlide.value = 0
 }
+
+const movieDetail = (movie) => {
+  console.log(movie.genres)
+}
 </script>
 
 
@@ -48,7 +52,7 @@ const prevSlide = () => {
       <img :src="arrow_prev" class="arrow" @click="prevSlide"/>
       <div class="movies-container" >
         <div class="movies" :style="{ transform: `translateX(-${currentSlide * slideWidth}px)` }">
-          <div v-for="movie in props.movies" :key="movie" :value="movie" class="movie">
+          <div v-for="movie in props.movies" :key="movie" :value="movie" class="movie" @click="movieDetail(movie)">
             <img :src="movie.image_url" class="movie-image"/>
             <div>{{ movie.title }}</div>
           </div>
